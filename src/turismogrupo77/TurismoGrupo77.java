@@ -4,6 +4,9 @@
  */
 package turismogrupo77;
 
+import turismogrupo77.accesoADatos.CiudadData;
+import turismogrupo77.entidades.Ciudad;
+
 /**
  *
  * @author Matias
@@ -15,6 +18,11 @@ public class TurismoGrupo77 {
      */
     public static void main(String[] args) {
     
+        
+   Ciudad ciudad = new Ciudad("Mendoza","Argentina","Mendoza",true);
+   CiudadData ciudadData = new CiudadData();
+    ciudadData.guardarCiudad(ciudad);
+        System.out.println(ciudad);
     }
     
 }
