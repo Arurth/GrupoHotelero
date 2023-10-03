@@ -109,5 +109,51 @@ public class CiudadData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla alumno");
         }
     }
-     */
+    
+    
+    public void elminarCiudad(String nombre) {
+        String sql = "UPDATE  SET estado = 0 WHERE nombre = ? ";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, nombre);
+            int exito = ps.executeUpdate();
+            if (exito == 1) {
+                JOptionPane.showMessageDialog(null, "Ciudad Eliminada");
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla ciudad");
+        }
+
+    }
+    
+    public List<Ciudad> listarCiudades(String provincia) {
+        String sql = "SELECT idCiudad, nombre, provincia, pais FROM ciudad WHERE estado = 1 AND provincia = ?";
+        ArrayList<Ciudad> ciudades = new ArrayList<>();
+        
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, provincia);
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                Ciudad ciudad= new Ciudad();
+                ciudad.setIdCiudad(rs.getInt("idCiudad"));
+                ciudad.setNombre(rs.getString("nombre"));
+                ciudad.setProvincia(rs.getString("provincia"));
+                ciudad.setPais(rs.getString("pais"));
+                ciudad.setEstado(rs.getBoolean("estado"));
+
+                ciudades.add(ciudad);
+
+            }
+
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla ciudad "+ex.getMessage());
+
+        }
+        return ciudades;
+
+    }
 }
