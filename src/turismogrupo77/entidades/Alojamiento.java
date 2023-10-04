@@ -4,38 +4,50 @@
  */
 package turismogrupo77.entidades;
 
-import java.util.Date;
+import java.time.LocalDate;
+
 
 /**
  *
  * @author Matias
  */
 public class Alojamiento {
-    private int idAlojamiento;
-    private Date fechaIn;
-    private Date fechaOut;
+    private int idAlojamiento;       
+    private LocalDate fechaIn;
+    private LocalDate fechaOut;
     private String servicio;
-    private double importe;
+    private double importeDiario;
     private Ciudad ciudadDest;
+    private boolean estado;
 
     public Alojamiento() {
     }
 
-    public Alojamiento(int idAlojamiento, Date fechaIn, Date fechaOut, String servicio, double importe, Ciudad ciudadDest) {
+    public Alojamiento(int idAlojamiento, LocalDate fechaIn, LocalDate fechaOut, String servicio, double importe, Ciudad ciudadDest, boolean estado) {
         this.idAlojamiento = idAlojamiento;
         this.fechaIn = fechaIn;
         this.fechaOut = fechaOut;
         this.servicio = servicio;
-        this.importe = importe;
+        this.importeDiario = importe;
         this.ciudadDest = ciudadDest;
+        this.estado = estado;
     }
 
-    public Alojamiento(Date fechaIn, Date fechaOut, String servicio, double importe, Ciudad ciudadDest) {
+    public Alojamiento(LocalDate fechaIn, LocalDate fechaOut, String servicio, double importe, Ciudad ciudadDest,boolean estado) {
         this.fechaIn = fechaIn;
         this.fechaOut = fechaOut;
         this.servicio = servicio;
-        this.importe = importe;
+        this.importeDiario = importe;
         this.ciudadDest = ciudadDest;
+        this.estado = estado;
+    }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 
     public int getIdAlojamiento() {
@@ -46,19 +58,19 @@ public class Alojamiento {
         this.idAlojamiento = idAlojamiento;
     }
 
-    public Date getFechaIn() {
+    public LocalDate getFechaIn() {
         return fechaIn;
     }
 
-    public void setFechaIn(Date fechaIn) {
+    public void setFechaIn(LocalDate fechaIn) {
         this.fechaIn = fechaIn;
     }
 
-    public Date getFechaOut() {
+    public LocalDate getFechaOut() {
         return fechaOut;
     }
 
-    public void setFechaOut(Date fechaOut) {
+    public void setFechaOut(LocalDate fechaOut) {
         this.fechaOut = fechaOut;
     }
 
@@ -70,12 +82,12 @@ public class Alojamiento {
         this.servicio = servicio;
     }
 
-    public double getImporte() {
-        return importe;
+    public double getImporteDiario() {
+        return importeDiario;
     }
 
-    public void setImporte(double importe) {
-        this.importe = importe;
+    public void setImporteDiario(double importeDiario) {
+        this.importeDiario = importeDiario;
     }
 
     public Ciudad getCiudadDest() {

@@ -15,6 +15,7 @@ public class Ciudad {
     private String pais ;
     private String provincia;
     private boolean estado;
+    
 
     public Ciudad() {
     }

@@ -21,8 +21,17 @@ public class TurismoGrupo77 {
         
    Ciudad ciudad = new Ciudad("Mendoza","Argentina","Mendoza",true);
    CiudadData ciudadData = new CiudadData();
-    ciudadData.guardarCiudad(ciudad);
-        System.out.println(ciudad);
+   ciudadData.guardarCiudad(ciudad);
+   Ciudad ciudad1 = new Ciudad("Buenos Aires","Argentina","Buenos Aires",true);
+   ciudadData.guardarCiudad(ciudad);
+   Alojamiento alojamiento = new Alojamiento("1997/07/09","1997/10/09","colectivo",1990.09,ciudad);
+   
+        
+        
+        Paquete paquete= new Paquete(ciudad,ciudad1,);
+        
+        
+        
     }
     
 }
