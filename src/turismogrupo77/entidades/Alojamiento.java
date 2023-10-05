@@ -15,7 +15,7 @@ public class Alojamiento {
     private int idAlojamiento;       
     private LocalDate fechaIn;
     private LocalDate fechaOut;
-    private String servicio;
+    private String servicios;
     private double importeDiario;
     private Ciudad ciudadDest;
     private boolean estado;
@@ -23,20 +23,20 @@ public class Alojamiento {
     public Alojamiento() {
     }
 
-    public Alojamiento(int idAlojamiento, LocalDate fechaIn, LocalDate fechaOut, String servicio, double importe, Ciudad ciudadDest, boolean estado) {
+    public Alojamiento(int idAlojamiento, LocalDate fechaIn, LocalDate fechaOut, String servicios, double importe, Ciudad ciudadDest, boolean estado) {
         this.idAlojamiento = idAlojamiento;
         this.fechaIn = fechaIn;
         this.fechaOut = fechaOut;
-        this.servicio = servicio;
+        this.servicios = servicios;
         this.importeDiario = importe;
         this.ciudadDest = ciudadDest;
         this.estado = estado;
     }
 
-    public Alojamiento(LocalDate fechaIn, LocalDate fechaOut, String servicio, double importe, Ciudad ciudadDest,boolean estado) {
+    public Alojamiento(LocalDate fechaIn, LocalDate fechaOut, String servicios, double importe, Ciudad ciudadDest,boolean estado) {
         this.fechaIn = fechaIn;
         this.fechaOut = fechaOut;
-        this.servicio = servicio;
+        this.servicios = servicios;
         this.importeDiario = importe;
         this.ciudadDest = ciudadDest;
         this.estado = estado;
@@ -74,12 +74,12 @@ public class Alojamiento {
         this.fechaOut = fechaOut;
     }
 
-    public String getServicio() {
-        return servicio;
+    public String getServicios() {
+        return servicios;
     }
 
-    public void setServicio(String servicio) {
-        this.servicio = servicio;
+    public void setServicios(String servicios) {
+        this.servicios = servicios;
     }
 
     public double getImporteDiario() {

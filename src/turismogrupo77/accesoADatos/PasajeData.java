@@ -10,6 +10,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import turismogrupo77.entidades.Alojamiento;
+import turismogrupo77.entidades.Ciudad;
 import turismogrupo77.entidades.Pasaje;
 
 /**
@@ -29,7 +31,7 @@ public class PasajeData {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, pasaje.getTipoTransporte());
             ps.setDouble(2, pasaje.getImporte());
-            ps.setInt(3, pasaje.getCiudad().getIdCiudad());
+            ps.setInt(3, pasaje.getCiudadOrigen().getIdCiudad());
             ps.setBoolean(4, pasaje.isEstado());
             ps.executeUpdate();
 
@@ -61,6 +63,33 @@ public class PasajeData {
         }
 
     }
+     public Pasaje buscarPasaje(int idPasaje) {
+       
+        //se fija primero si hay alguna ciudad con ese nombre
+        String sql = "SELECT idPasaje, tipoTransporte, importe, ciudadOrigen , estado  FROM Pasaje WHERE idPasaje=?";
+        Pasaje pasajeEncontrado = null;
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idPasaje);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                JOptionPane.showMessageDialog(null, "Se ha encontrado la ciudad con ese nombre");
+                pasajeEncontrado = new Pasaje();
+                Ciudad ciudad= new Ciudad();
+                pasajeEncontrado.setIdPasaje(rs.getInt("idPasaje"));
+                pasajeEncontrado.setTipoTransporte(rs.getString("tipoTransporte"));
+                pasajeEncontrado.setImporte(rs.getDouble("importe"));
+                ciudad.setIdCiudad(rs.getInt("ciudadOrigen"));
+                pasajeEncontrado.setCiudadOrigen(ciudad);
+                pasajeEncontrado.setEstado(rs.getBoolean("estado"));
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al Acceder a la base de datos " + ex.getMessage());
+        }
+        return pasajeEncontrado;
+    }
+
 }
 
 

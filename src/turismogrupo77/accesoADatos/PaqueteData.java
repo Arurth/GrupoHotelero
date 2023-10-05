@@ -32,8 +32,8 @@ public class PaqueteData {
         String sql = " INSERT INTO Paquete (origen, destino, idAlojamiento, idPasaje)" + "VALUES(?,?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, paquete.getOrigen().getOrigen());
-            ps.setString(2, paquete.getDestino().getDestino());
+            ps.setString(1, paquete.getOrigen().getNombre());
+            ps.setString(2, paquete.getDestino().getNombre());
             ps.setInt(3, paquete.getAlojamiento().getIdAlojamiento());
             ps.setInt(4, paquete.getPasaje().getIdPasaje());
             ps.executeUpdate();

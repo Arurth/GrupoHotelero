@@ -4,8 +4,16 @@
  */
 package turismogrupo77;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import turismogrupo77.accesoADatos.AlojamientoData;
 import turismogrupo77.accesoADatos.CiudadData;
+import turismogrupo77.accesoADatos.PaqueteData;
+import turismogrupo77.accesoADatos.PasajeData;
+import turismogrupo77.entidades.Alojamiento;
 import turismogrupo77.entidades.Ciudad;
+import turismogrupo77.entidades.Paquete;
+import turismogrupo77.entidades.Pasaje;
 
 /**
  *
@@ -17,18 +25,29 @@ public class TurismoGrupo77 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-    
         
-   Ciudad ciudad = new Ciudad("Mendoza","Argentina","Mendoza",true);
+        
+   Ciudad ciudad = new Ciudad("Misiones","Argentina","Mendoza",true);
    CiudadData ciudadData = new CiudadData();
-   ciudadData.guardarCiudad(ciudad);
-   Ciudad ciudad1 = new Ciudad("Buenos Aires","Argentina","Buenos Aires",true);
-   ciudadData.guardarCiudad(ciudad);
-   Alojamiento alojamiento = new Alojamiento("1997/07/09","1997/10/09","colectivo",1990.09,ciudad);
    
+   Ciudad ciudad1 = new Ciudad("Cordoba","Argentina","Buenos Aires",true);
+   
+   Ciudad c1 = ciudadData.buscarCiudad("Cordoba");
+   Ciudad c2 = ciudadData.buscarCiudad("Rosario");
+   
+   Alojamiento alojamiento = new Alojamiento(LocalDate.parse("1997-07-09"),LocalDate.parse("1997-10-09"),"colectivo",1990.09,c1,true);
+   AlojamientoData alojamientoData = new AlojamientoData();
+   alojamientoData.guardarAlojamiento(alojamiento);
         
-        
-        Paquete paquete= new Paquete(ciudad,ciudad1,);
+       
+   Pasaje pasaje = new Pasaje("colectivo",1990.09,c2,true);
+   PasajeData pasajeData= new PasajeData();
+   pasajeData.guardarPasaje(pasaje);
+   
+   
+   Paquete paquete= new Paquete(c2,c1,alojamiento,pasaje);
+   PaqueteData paqueteData = new PaqueteData();
+   paqueteData.guardarPaquete(paquete);
         
         
         

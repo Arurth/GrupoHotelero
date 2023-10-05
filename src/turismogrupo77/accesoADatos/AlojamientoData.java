@@ -28,14 +28,14 @@ public class AlojamientoData {
     }
     
     public void guardarAlojamiento(Alojamiento alojamiento) {
-        String sql = " INSERT INTO alojamiento (fechIn, fechaOut, servicio, importeDiario, ciudadDest)" + "VALUES(?,?,?,?,?)";
+        String sql = " INSERT INTO alojamiento (fechaIn, fechaOut, servicios, importeDiario, ciudadDest)" + "VALUES(?,?,?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setDate(1, Date.valueOf(alojamiento.getFechaIn()));
             ps.setDate(2, Date.valueOf(alojamiento.getFechaOut()));
-            ps.setString(3, alojamiento.getServicio());
+            ps.setString(3, alojamiento.getServicios());
             ps.setDouble(4, alojamiento.getImporteDiario());
-            ps.setString(5, alojamiento.getCiudadDest().getDestino());
+            ps.setInt(5, alojamiento.getCiudadDest().getIdCiudad());
             ps.executeUpdate();
 
             ResultSet rs = ps.getGeneratedKeys();
@@ -85,7 +85,7 @@ public class AlojamientoData {
                 alojamientoEncontrado.setIdAlojamiento(rs.getInt("idAlojamiento"));
                 alojamientoEncontrado.setFechaIn(rs.getDate("fechaIn").toLocalDate());
                 alojamientoEncontrado.setFechaOut(rs.getDate("fechaOut").toLocalDate());
-                alojamientoEncontrado.setServicio(rs.getString("servicio"));
+                alojamientoEncontrado.setServicios(rs.getString("servicios"));
                 alojamientoEncontrado.setImporteDiario(rs.getDouble("importeDiario"));
                 ciudad.setIdCiudad(rs.getInt("ciudadDest"));
                 alojamientoEncontrado.setCiudadDest(ciudad);

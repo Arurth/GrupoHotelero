@@ -35,6 +35,8 @@ public class Ciudad {
         this.estado = estado;
     }
 
+   
+
     public int getIdCiudad() {
         return idCiudad;
     }

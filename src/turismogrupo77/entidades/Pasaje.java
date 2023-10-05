@@ -12,24 +12,24 @@ public class Pasaje {
     private int idPasaje;
     private String tipoTransporte;
     private double importe;
-    private Ciudad ciudad;
+    private Ciudad ciudadOrigen;
     private boolean estado;
 
     public Pasaje() {
     }
 
-    public Pasaje(int idPasaje, String tipoTransporte, double importe, Ciudad ciudad, boolean estado) {
+    public Pasaje(int idPasaje, String tipoTransporte, double importe, Ciudad ciudadOrigen, boolean estado) {
         this.idPasaje = idPasaje;
         this.tipoTransporte = tipoTransporte;
         this.importe = importe;
-        this.ciudad = ciudad;
+        this.ciudadOrigen = ciudadOrigen;
         this.estado = estado;
     }
 
-    public Pasaje(String tipoTransporte, double importe, Ciudad ciudad, boolean estado) {
+    public Pasaje(String tipoTransporte, double importe, Ciudad ciudadOrigen, boolean estado) {
         this.tipoTransporte = tipoTransporte;
         this.importe = importe;
-        this.ciudad = ciudad;
+        this.ciudadOrigen = ciudadOrigen;
         this.estado = estado;
     }
 
@@ -57,12 +57,12 @@ public class Pasaje {
         this.importe = importe;
     }
 
-    public Ciudad getCiudad() {
-        return ciudad;
+    public Ciudad getCiudadOrigen() {
+        return ciudadOrigen;
     }
 
-    public void setCiudad(Ciudad ciudad) {
-        this.ciudad = ciudad;
+    public void setCiudadOrigen(Ciudad ciudadOrigen) {
+        this.ciudadOrigen = ciudadOrigen;
     }
 
     public boolean isEstado() {
@@ -75,7 +75,7 @@ public class Pasaje {
 
     @Override
     public String toString() {
-        return "Pasaje{" + "idPasaje=" + idPasaje + ", tipoTransporte=" + tipoTransporte + ", ciudad=" + ciudad + '}';
+        return "Pasaje{" + "idPasaje=" + idPasaje + ", tipoTransporte=" + tipoTransporte + ", ciudad=" + ciudadOrigen + '}';
     }
     
     
