@@ -26,23 +26,25 @@ public class MenuPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jDesktopPane1 = new javax.swing.JDesktopPane();
+        escritorio = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
+        jMCiudades = new javax.swing.JMenu();
+        jGestion = new javax.swing.JMenuItem();
+        jListado = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
-        jDesktopPane1.setLayout(jDesktopPane1Layout);
-        jDesktopPane1Layout.setHorizontalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
+        escritorio.setLayout(escritorioLayout);
+        escritorioLayout.setHorizontalGroup(
+            escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 651, Short.MAX_VALUE)
         );
-        jDesktopPane1Layout.setVerticalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        escritorioLayout.setVerticalGroup(
+            escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 489, Short.MAX_VALUE)
         );
 
@@ -54,8 +56,30 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Ciudades");
-        jMenuBar1.add(jMenu2);
+        jMCiudades.setText("Ciudades");
+        jMCiudades.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMCiudadesActionPerformed(evt);
+            }
+        });
+
+        jGestion.setText("Gestion");
+        jGestion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jGestionActionPerformed(evt);
+            }
+        });
+        jMCiudades.add(jGestion);
+
+        jListado.setText("Listado");
+        jListado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jListadoActionPerformed(evt);
+            }
+        });
+        jMCiudades.add(jListado);
+
+        jMenuBar1.add(jMCiudades);
 
         jMenu3.setText("Alojamientos");
         jMenuBar1.add(jMenu3);
@@ -67,11 +91,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1)
+            .addComponent(escritorio)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1)
+            .addComponent(escritorio)
         );
 
         pack();
@@ -79,7 +103,32 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
         // TODO add your handling code here:
+        
+        
     }//GEN-LAST:event_jMenu1ActionPerformed
+
+    private void jGestionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jGestionActionPerformed
+        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        FormularioCiudad fcv = new FormularioCiudad();
+        fcv.setVisible(true);
+        escritorio.add(fcv);
+    }//GEN-LAST:event_jGestionActionPerformed
+
+    private void jMCiudadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMCiudadesActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jMCiudadesActionPerformed
+
+    private void jListadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jListadoActionPerformed
+        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        CiudadLista clv = new CiudadLista();
+        clv.setVisible(true);
+        escritorio.add(clv);
+    }//GEN-LAST:event_jListadoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -117,9 +166,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JDesktopPane escritorio;
+    private javax.swing.JMenuItem jGestion;
+    private javax.swing.JMenuItem jListado;
+    private javax.swing.JMenu jMCiudades;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;

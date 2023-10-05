@@ -30,10 +30,11 @@ public class CiudadData {
         con = Conexion.getConexion();
     }
     String nombre;
+    String sql;
 
     public Ciudad buscarCiudad(String nombre) {
 
-        //se fija primero si hay alguna ciudad con ese nombre
+        //busca una ciudad con ese nombre
         String sql = "SELECT idCiudad, nombre, provincia, pais, estado FROM ciudad WHERE nombre=?";
         Ciudad ciudadEncontrada = null;
         try {
@@ -57,10 +58,9 @@ public class CiudadData {
     }
 
     public void guardarCiudad(Ciudad ciudad) {
-        
 
-        if(buscarCiudad(ciudad.getNombre())!=null){
-            JOptionPane.showMessageDialog(null, "La ciudad con el nombre "+ciudad.getNombre()+" ya Existe");
+        if (buscarCiudad(ciudad.getNombre()) != null) {
+            JOptionPane.showMessageDialog(null, "La ciudad con el nombre " + ciudad.getNombre() + " ya Existe");
             return;
         }
 
@@ -88,34 +88,33 @@ public class CiudadData {
     }
 
     public void modificarCiudad(Ciudad ciudad) {
-        String sql = "UPDATE ciudad SET nombre=?, provincia=?, pais=?, estado=?"
-                + " WHERE nombre = ?";
+        String sql = "UPDATE ciudad SET nombre=?, pais=?, provincia=?, estado=? WHERE idCiudad = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, ciudad.getNombre());
-            ps.setString(2, ciudad.getProvincia());
-            ps.setString(3, ciudad.getPais());
+            ps.setString(2, ciudad.getPais());
+            ps.setString(3, ciudad.getProvincia());
             ps.setBoolean(4, ciudad.isEstado());
-            ps.setString(5, ciudad.getNombre());
+            ps.setInt(5, ciudad.getIdCiudad());
+            //ps.setString(5, ciudad.getNombre());
             int exito = ps.executeUpdate();
             System.out.println(exito);
 
             if (exito == 1) {
-                JOptionPane.showMessageDialog(null, "Alumno modificado");
+                JOptionPane.showMessageDialog(null, "Ciudad Modificada");
 
             }
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla alumno");
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Ciudad");
         }
     }
-    
-    
-    public void elminarCiudad(String nombre) {
-        String sql = "UPDATE  SET estado = 0 WHERE nombre = ? ";
+
+    public void eliminarCiudad(int idCiudad) {
+        String sql = "UPDATE ciudad SET estado = 0 WHERE idCiudad = ? ";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, nombre);
+            ps.setInt(1, idCiudad);
             int exito = ps.executeUpdate();
             if (exito == 1) {
                 JOptionPane.showMessageDialog(null, "Ciudad Eliminada");
@@ -127,22 +126,23 @@ public class CiudadData {
 
     }
     
-    public List<Ciudad> listarCiudades(String provincia) {
-        String sql = "SELECT idCiudad, nombre, provincia, pais FROM ciudad WHERE estado = 1 AND provincia = ?";
-        ArrayList<Ciudad> ciudades = new ArrayList<>();
+        public List<Ciudad> listarTodasCiudades(String provincia) {
         
+        String sql = "SELECT idCiudad, nombre, pais, provincia FROM ciudad WHERE estado = 1";
+        ArrayList<Ciudad> ciudades = new ArrayList<>();
+
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, provincia);
             ResultSet rs = ps.executeQuery();
-            
+
             while (rs.next()) {
-                Ciudad ciudad= new Ciudad();
+                Ciudad ciudad = new Ciudad();
                 ciudad.setIdCiudad(rs.getInt("idCiudad"));
                 ciudad.setNombre(rs.getString("nombre"));
                 ciudad.setProvincia(rs.getString("provincia"));
                 ciudad.setPais(rs.getString("pais"));
-                ciudad.setEstado(rs.getBoolean("estado"));
+                //  ciudad.setEstado(rs.getBoolean("estado"));
 
                 ciudades.add(ciudad);
 
@@ -150,7 +150,43 @@ public class CiudadData {
 
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla ciudad "+ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla ciudad " + ex.getMessage());
+
+        }
+        return ciudades;
+
+    }
+
+    public List<Ciudad> listarCiudades(String provincia) {
+        
+        String sql = "SELECT idCiudad, nombre, pais, provincia FROM ciudad WHERE estado = 1 and provincia = ?";
+        
+        if(provincia.equals("Todas")){
+            sql = "SELECT idCiudad, nombre, pais, provincia FROM ciudad WHERE estado = 1";
+        }
+        
+        ArrayList<Ciudad> ciudades = new ArrayList<>();
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, provincia);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Ciudad ciudad = new Ciudad();
+                ciudad.setIdCiudad(rs.getInt("idCiudad"));
+                ciudad.setNombre(rs.getString("nombre"));
+                ciudad.setProvincia(rs.getString("provincia"));
+                ciudad.setPais(rs.getString("pais"));
+                //  ciudad.setEstado(rs.getBoolean("estado"));
+
+                ciudades.add(ciudad);
+
+            }
+
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla ciudad " + ex.getMessage());
 
         }
         return ciudades;
