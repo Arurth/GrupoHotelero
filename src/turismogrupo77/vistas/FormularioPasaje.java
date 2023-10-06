@@ -36,6 +36,7 @@ public class FormularioPasaje extends javax.swing.JInternalFrame {
         jBBuscarOrigen.setEnabled(true);
         jBBuscarDestino.setEnabled(true);
         jBGuardar.setEnabled(false);
+        jTIDpasaje.setText("");
 
         jREstado.setSelected(false);
         jREstado.setEnabled(false);
@@ -364,13 +365,15 @@ public class FormularioPasaje extends javax.swing.JInternalFrame {
             pass.setEstado(jREstado.isSelected());
             pass.setTipoTransporte(jCTransporte.getSelectedItem()+"");
             passData.modificarPasaje(pass);
+            jTIDpasaje.setText(pass.getIdPasaje()+"");
             return;
         }
 
         Ciudad ciudadOrigen = city.buscarCiudad(jTOrigen.getText());
         Ciudad ciudadDest = city.buscarCiudad(jTDestino.getText());
         pass = new Pasaje(jCTransporte.getSelectedItem() + "", Double.valueOf(jTImporte.getText()), ciudadOrigen, ciudadDest, jREstado.isSelected());
-        passData.guardarPasaje(pass);
+        jTIDpasaje.setText(passData.guardarPasaje(pass)+"");
+        
     }//GEN-LAST:event_jBGuardarActionPerformed
 
     private void jBCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarActionPerformed

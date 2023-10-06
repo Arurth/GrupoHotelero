@@ -28,8 +28,9 @@ public class PasajeData {
         con = Conexion.getConexion();
     }
 
-    public void guardarPasaje(Pasaje pasaje) {
+    public int guardarPasaje(Pasaje pasaje) {
         String sql = " INSERT INTO Pasaje (tipoTransporte, importe, ciudadOrigen, ciudadDest, estado)" + "VALUES(?,?,?,?,?)";
+        int IDpasajeNuevo = 0;
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, pasaje.getTipoTransporte());
@@ -45,12 +46,14 @@ public class PasajeData {
 
                 //muestra que el insert fue exitoso y muestra el numero de ID (único)
                 JOptionPane.showMessageDialog(null, "Se ha generado el pasaje" + rs.getInt(1));
+                IDpasajeNuevo = rs.getInt(1);
             }
             ps.close();
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla pasaje" + ex.getMessage());
         }
+        return IDpasajeNuevo;
     }
 
     public void elminarPasaje(int idPasaje) {
