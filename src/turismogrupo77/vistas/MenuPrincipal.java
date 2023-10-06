@@ -34,6 +34,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jListado = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -45,7 +47,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 489, Short.MAX_VALUE)
+            .addGap(0, 491, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Paquetes");
@@ -84,6 +86,18 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu3.setText("Alojamientos");
         jMenuBar1.add(jMenu3);
         jMenuBar1.add(jMenu4);
+
+        jMenu2.setText("Pasajes");
+
+        jMenuItem1.setText("Gestor");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
@@ -130,6 +144,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
         escritorio.add(clv);
     }//GEN-LAST:event_jListadoActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        FormularioPasaje fpv = new FormularioPasaje();
+        fpv.setVisible(true);
+        escritorio.add(fpv);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -171,8 +194,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jListado;
     private javax.swing.JMenu jMCiudades;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     // End of variables declaration//GEN-END:variables
 }
