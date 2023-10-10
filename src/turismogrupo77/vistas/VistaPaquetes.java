@@ -8,12 +8,12 @@ package turismogrupo77.vistas;
  *
  * @author Matias
  */
-public class Paquetes extends javax.swing.JInternalFrame {
+public class VistaPaquetes extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form Paquetes
+     * Creates new form 
      */
-    public Paquetes() {
+    public VistaPaquetes() {
         initComponents();
     }
 
@@ -178,7 +178,7 @@ public class Paquetes extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

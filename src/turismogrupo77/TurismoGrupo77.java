@@ -26,7 +26,7 @@ public class TurismoGrupo77 {
      */
     public static void main(String[] args) {
         
-   /*     
+       
    Ciudad ciudad = new Ciudad("Misiones","Argentina","Mendoza",true);
    CiudadData ciudadData = new CiudadData();
    
@@ -40,7 +40,7 @@ public class TurismoGrupo77 {
    alojamientoData.guardarAlojamiento(alojamiento);
         
        
-   Pasaje pasaje = new Pasaje("colectivo",1990.09,c2,true);
+   Pasaje pasaje = new Pasaje("colectivo",1990.09,c1,c2,true);
    PasajeData pasajeData= new PasajeData();
    pasajeData.guardarPasaje(pasaje);
    
@@ -52,6 +52,6 @@ public class TurismoGrupo77 {
         
         
     }
-    */
+    
     }
-    }
+    
