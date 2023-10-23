@@ -4,6 +4,17 @@
  */
 package turismogrupo77.vistas;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import turismogrupo77.accesoADatos.AlojamientoData;
+import turismogrupo77.accesoADatos.CiudadData;
+import turismogrupo77.accesoADatos.PasajeData;
+import turismogrupo77.entidades.Alojamiento;
+import turismogrupo77.entidades.Ciudad;
+import turismogrupo77.entidades.Pasaje;
+
 /**
  *
  * @author Matias
@@ -13,8 +24,60 @@ public class FormularioAlojamiento extends javax.swing.JInternalFrame {
     /**
      * Creates new form FormularioAlojamiento
      */
+    private DefaultTableModel modelo;
+
     public FormularioAlojamiento() {
         initComponents();
+        modelo = new DefaultTableModel();
+        armarCabeceraTabla();
+    }
+
+    private void armarCabeceraTabla() {
+        ArrayList<Object> filaCabecera = new ArrayList<>();
+        filaCabecera.add("ID Alojamiento");
+        filaCabecera.add("Nombre");
+        filaCabecera.add("Tipo");
+        filaCabecera.add("Importe");
+
+        for (Object it : filaCabecera) {
+            modelo.addColumn(it);
+        }
+        jTAlojamientos.setModel(modelo);
+    }
+
+    private void borrarTabla() {
+        int indice = modelo.getRowCount() - 1;
+        for (int i = indice; i >= 0; i--) {
+            modelo.removeRow(i);
+        }
+    }
+
+    private void borrarContenidoFormulario() {
+        jTNombre.setText("");
+        jTNombre.setEnabled(false);
+        jCBoxTipoAlojamiento.setSelectedIndex(0);
+        jCBoxTipoAlojamiento.setEnabled(false);
+        jTIdAlojamiento.setEnabled(false);
+        
+
+        jTextImporteDiario.setText("");
+        jTextImporteDiario.setEnabled(false);
+        jTDescripcionMenu.setText("");
+        jTDescripcionMenu.setEnabled(false);
+        jTIdAlojamiento.setText("");
+        jCBoxServicios.setSelectedItem(0);
+        jCBoxServicios.setEnabled(false);
+
+        jREstado.setEnabled(false);
+        jREstado.setSelected(false);
+
+        jBGuardar.setEnabled(false);
+        jBCancelar.setEnabled(true);
+        jBEliminar.setEnabled(false);
+        jBModificar.setEnabled(false);
+        jBNuevo.setEnabled(true);
+        borrarTabla();
+
     }
 
     /**
@@ -33,31 +96,33 @@ public class FormularioAlojamiento extends javax.swing.JInternalFrame {
         jTable1 = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
-        jButtonGuardar = new javax.swing.JButton();
+        jBGuardar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jCBoxServicios = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        JDChooserIn = new com.toedter.calendar.JDateChooser();
-        JDChooserOut = new com.toedter.calendar.JDateChooser();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jButtonEliminar = new javax.swing.JButton();
-        jButtonCancelar = new javax.swing.JButton();
-        jButtonSalir = new javax.swing.JButton();
-        jButtonModificar = new javax.swing.JButton();
+        jBEliminar = new javax.swing.JButton();
+        jBCancelar = new javax.swing.JButton();
+        jBSalir = new javax.swing.JButton();
+        jBModificar = new javax.swing.JButton();
         jTextImporteDiario = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jButtonBuscar = new javax.swing.JButton();
+        jBBuscar = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
-        jRadioButtonDisp = new javax.swing.JRadioButton();
+        jREstado = new javax.swing.JRadioButton();
         jLabel7 = new javax.swing.JLabel();
-        jTextCiudadDest = new javax.swing.JTextField();
+        jTCiudadDest = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jCBoxTipoAlojamiento = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
+        jTNombre = new javax.swing.JTextField();
+        jBNuevo = new javax.swing.JButton();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jTDescripcionMenu = new javax.swing.JTextArea();
+        jLabel5 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTableMenus = new javax.swing.JTable();
+        jTAlojamientos = new javax.swing.JTable();
+        jTIdAlojamiento = new javax.swing.JTextField();
+        jCBoxTipoAlojamiento = new javax.swing.JComboBox<>();
 
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -92,10 +157,11 @@ public class FormularioAlojamiento extends javax.swing.JInternalFrame {
         ));
         jScrollPane3.setViewportView(jTable2);
 
-        jButtonGuardar.setText("Guardar");
-        jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
+        jBGuardar.setText("Guardar");
+        jBGuardar.setEnabled(false);
+        jBGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonGuardarActionPerformed(evt);
+                jBGuardarActionPerformed(evt);
             }
         });
 
@@ -103,41 +169,46 @@ public class FormularioAlojamiento extends javax.swing.JInternalFrame {
         jLabel1.setText("Gestion Alojamiento");
 
         jCBoxServicios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Desayuno", "Menu", " " }));
+        jCBoxServicios.setEnabled(false);
+        jCBoxServicios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCBoxServiciosActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Servicios : ");
 
-        jLabel4.setText("Fecha Ingreso :");
-
-        jLabel5.setText("Fecha Salida :");
-
-        jButtonEliminar.setText("Eliminar");
-        jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
+        jBEliminar.setText("Eliminar");
+        jBEliminar.setEnabled(false);
+        jBEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonEliminarActionPerformed(evt);
+                jBEliminarActionPerformed(evt);
             }
         });
 
-        jButtonCancelar.setText("Cancelar");
-        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+        jBCancelar.setText("Cancelar");
+        jBCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonCancelarActionPerformed(evt);
+                jBCancelarActionPerformed(evt);
             }
         });
 
-        jButtonSalir.setText("Salir");
-        jButtonSalir.addActionListener(new java.awt.event.ActionListener() {
+        jBSalir.setText("Salir");
+        jBSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSalirActionPerformed(evt);
+                jBSalirActionPerformed(evt);
             }
         });
 
-        jButtonModificar.setText("Modificar");
-        jButtonModificar.addActionListener(new java.awt.event.ActionListener() {
+        jBModificar.setText("Modificar");
+        jBModificar.setEnabled(false);
+        jBModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonModificarActionPerformed(evt);
+                jBModificarActionPerformed(evt);
             }
         });
 
+        jTextImporteDiario.setEnabled(false);
         jTextImporteDiario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextImporteDiarioActionPerformed(evt);
@@ -148,24 +219,19 @@ public class FormularioAlojamiento extends javax.swing.JInternalFrame {
 
         jLabel6.setText("ID :");
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        jBBuscar.setText("Buscar");
+        jBBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
-            }
-        });
-
-        jButtonBuscar.setText("Buscar");
-        jButtonBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonBuscarActionPerformed(evt);
+                jBBuscarActionPerformed(evt);
             }
         });
 
         jLabel8.setText("Disponibilidad :");
 
-        jRadioButtonDisp.addActionListener(new java.awt.event.ActionListener() {
+        jREstado.setEnabled(false);
+        jREstado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonDispActionPerformed(evt);
+                jREstadoActionPerformed(evt);
             }
         });
 
@@ -173,202 +239,338 @@ public class FormularioAlojamiento extends javax.swing.JInternalFrame {
 
         jLabel9.setText("Tipo :");
 
-        jCBoxTipoAlojamiento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hotel", "Hostel", "Departamento", " " }));
-        jCBoxTipoAlojamiento.addActionListener(new java.awt.event.ActionListener() {
+        jLabel4.setText("Nombre");
+
+        jTNombre.setEnabled(false);
+
+        jBNuevo.setText("Nuevo");
+        jBNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCBoxTipoAlojamientoActionPerformed(evt);
+                jBNuevoActionPerformed(evt);
             }
         });
 
-        jTableMenus.setModel(new javax.swing.table.DefaultTableModel(
+        jTDescripcionMenu.setColumns(20);
+        jTDescripcionMenu.setRows(5);
+        jTDescripcionMenu.setEnabled(false);
+        jScrollPane5.setViewportView(jTDescripcionMenu);
+
+        jLabel5.setText("Descripcion:");
+
+        jTAlojamientos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "MENUS"
+                "ID", "Nombre", "Tipo", "Importe"
             }
-        ));
-        jScrollPane4.setViewportView(jTableMenus);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTAlojamientos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTAlojamientosMouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(jTAlojamientos);
+
+        jTIdAlojamiento.setEnabled(false);
+
+        jCBoxTipoAlojamiento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hotel", "Hostel", "Departamento" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel2)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8))
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel5))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
+                        .addGap(56, 56, 56)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jBEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextImporteDiario, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(5, 5, 5)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jCBoxTipoAlojamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(JDChooserIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(JDChooserOut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGap(159, 159, 159)
-                                        .addComponent(jLabel6))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jTextImporteDiario, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(81, 81, 81)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jBGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jBCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(54, 54, 54)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel6)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGap(202, 202, 202)
+                                            .addComponent(jLabel1))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                            .addGap(18, 18, 18)
+                                            .addComponent(jTIdAlojamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(jLabel7)
-                                            .addComponent(jLabel3))))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(jTCiudadDest, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(jBBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(jBNuevo))))
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 651, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jBSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
-                                            .addComponent(jTextCiudadDest))
+                                        .addComponent(jLabel4)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jCBoxServicios, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(158, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jRadioButtonDisp)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 210, Short.MAX_VALUE)
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(55, 55, 55))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonModificar)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(350, 350, 350)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addComponent(jTNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel5)
+                                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel3)
+                                                .addGap(35, 35, 35)
+                                                .addComponent(jCBoxServicios, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(jBModificar))))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel8)
+                                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jCBoxTipoAlojamiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jREstado)))))))
+                .addContainerGap(68, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(6, 6, 6)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel4)
-                                .addComponent(JDChooserIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(19, 19, 19)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonBuscar))))
-                .addGap(11, 11, 11)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel5)
-                    .addComponent(JDChooserOut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(5, 5, 5)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTextCiudadDest, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
+                        .addGap(55, 55, 55)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(jTIdAlojamiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jTCiudadDest, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jBBuscar)
+                                .addComponent(jBNuevo))
+                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING))))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCBoxServicios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(jTNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel5)
+                        .addComponent(jLabel8))
+                    .addComponent(jREstado, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
                             .addComponent(jCBoxTipoAlojamiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(27, 27, 27)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextImporteDiario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
-                        .addGap(40, 40, 40)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jRadioButtonDisp, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jCBoxServicios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                            .addComponent(jLabel2)
+                            .addComponent(jTextImporteDiario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonGuardar)
-                    .addComponent(jButtonEliminar)
-                    .addComponent(jButtonModificar)
-                    .addComponent(jButtonCancelar)
-                    .addComponent(jButtonSalir))
-                .addGap(387, 387, 387))
+                    .addComponent(jBCancelar)
+                    .addComponent(jBGuardar)
+                    .addComponent(jBModificar)
+                    .addComponent(jBEliminar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBSalir)
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
+    private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonGuardarActionPerformed
+        CiudadData city = new CiudadData();
+        Ciudad ciudadEncontrada = city.buscarCiudad(jTCiudadDest.getText());
 
-    private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
+        if (ciudadEncontrada != null) {
+            AlojamientoData aloj = new AlojamientoData();
+            Alojamiento newAloj = new Alojamiento(jTNombre.getText(), jCBoxTipoAlojamiento.getSelectedItem()+"", jCBoxServicios.getSelectedItem()+"",  jTDescripcionMenu.getText(), Double.valueOf(jTextImporteDiario.getText()), ciudadEncontrada, jREstado.isSelected());
+            JOptionPane.showMessageDialog(null, newAloj.getTipoAlojamiento());
+            aloj.guardarAlojamiento(newAloj);
+            borrarContenidoFormulario();
+        } else {
+            JOptionPane.showMessageDialog(null, "No Existe una ciudad con el nombre " + jTCiudadDest.getText());
+        }
+
+
+    }//GEN-LAST:event_jBGuardarActionPerformed
+
+    private void jBEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEliminarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonEliminarActionPerformed
+    }//GEN-LAST:event_jBEliminarActionPerformed
 
-    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+    private void jBCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonCancelarActionPerformed
+        borrarContenidoFormulario();
+    }//GEN-LAST:event_jBCancelarActionPerformed
 
-    private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
+    private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed
         this.dispose();
-    }//GEN-LAST:event_jButtonSalirActionPerformed
+    }//GEN-LAST:event_jBSalirActionPerformed
 
-    private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
+    private void jBModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBModificarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonModificarActionPerformed
+        CiudadData city = new CiudadData();
+        Ciudad ciudadEncontrada = city.buscarCiudad(jTCiudadDest.getText());
+
+        if (ciudadEncontrada != null) {
+            AlojamientoData aloj = new AlojamientoData();
+            Alojamiento newAloj = new Alojamiento((Integer)modelo.getValueAt(jTAlojamientos.getSelectedRow(), 0),jTNombre.getText(), jCBoxTipoAlojamiento.getSelectedItem()+"", jCBoxServicios.getSelectedItem()+"",  jTDescripcionMenu.getText(), Double.valueOf(jTextImporteDiario.getText()), ciudadEncontrada, jREstado.isSelected());
+            JOptionPane.showMessageDialog(null, newAloj.getTipoAlojamiento());
+            aloj.modificarAlojamiento(newAloj);
+            JOptionPane.showMessageDialog(null, "Se han modificado Correctamente los Datos del Alojamiento");
+            borrarContenidoFormulario();
+        } else {
+            JOptionPane.showMessageDialog(null, "No Existe una ciudad con el nombre " + jTCiudadDest.getText());
+        }
+        
+    }//GEN-LAST:event_jBModificarActionPerformed
 
     private void jTextImporteDiarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextImporteDiarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextImporteDiarioActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void jBBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+        borrarTabla();
+        CiudadData city = new CiudadData();
+        Alojamiento AlojamientoEncontrado = new Alojamiento();
+        AlojamientoData alojData = new AlojamientoData();
 
-    private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonBuscarActionPerformed
+        Ciudad ciudadEncontrada = city.buscarCiudad(jTCiudadDest.getText());
 
-    private void jRadioButtonDispActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonDispActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButtonDispActionPerformed
+        if (ciudadEncontrada != null) {
+            int IDCiudad = ciudadEncontrada.getIdCiudad();
+            List<Alojamiento> alojamientos = alojData.listarAlojamientosIDciudad(IDCiudad);
+            for (Alojamiento a : alojamientos) {
+                modelo.addRow(new Object[]{a.getIdAlojamiento(), a.getNombre(), a.getTipoAlojamiento(), a.getImporteDiario()});
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No hay una ciudad que se llame " + jTCiudadDest.getText());
+            borrarContenidoFormulario();
+        }
 
-    private void jCBoxTipoAlojamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBoxTipoAlojamientoActionPerformed
+    }//GEN-LAST:event_jBBuscarActionPerformed
+
+    private void jREstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jREstadoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCBoxTipoAlojamientoActionPerformed
+    }//GEN-LAST:event_jREstadoActionPerformed
+
+    private void jBNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBNuevoActionPerformed
+        // TODO add your handling code here:
+        borrarContenidoFormulario();
+
+        jTNombre.setText("");
+        jTNombre.setEnabled(true);
+        jCBoxTipoAlojamiento.setSelectedItem(0);
+        jCBoxTipoAlojamiento.setEnabled(true);
+        jCBoxServicios.setSelectedItem(0);
+        jCBoxServicios.setEnabled(true);
+        jTextImporteDiario.setText("");
+        jTextImporteDiario.setEnabled(true);
+        jTDescripcionMenu.setText("");
+        jTDescripcionMenu.setEnabled(true);
+        jTIdAlojamiento.setText("");
+
+        jREstado.setEnabled(true);
+
+        jREstado.setSelected(true);
+
+        jBGuardar.setEnabled(true);
+        jBCancelar.setEnabled(true);
+        jBEliminar.setEnabled(false);
+        jBModificar.setEnabled(false);
+        jBNuevo.setEnabled(true);
+        borrarTabla();
+    }//GEN-LAST:event_jBNuevoActionPerformed
+
+    private void jTAlojamientosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTAlojamientosMouseClicked
+        // TODO add your handling code here:
+        Alojamiento aloj = new Alojamiento();
+        AlojamientoData alojData = new AlojamientoData();
+        
+        if (jTAlojamientos.getSelectedRow() != -1) {
+            JOptionPane.showMessageDialog(null, modelo.getValueAt(jTAlojamientos.getSelectedRow(), 0));
+            aloj = alojData.buscarAlojamiento((Integer)modelo.getValueAt(jTAlojamientos.getSelectedRow(), 0));
+            jTNombre.setText(aloj.getNombre());
+            jTNombre.setEnabled(true);
+            
+            
+            
+            jCBoxTipoAlojamiento.setSelectedItem(aloj.getTipoAlojamiento()+"");
+            jCBoxTipoAlojamiento.setEnabled(true);
+            
+            jCBoxServicios.setSelectedItem(aloj.getServicios()+"");
+            jCBoxServicios.setEnabled(true);
+            
+            jTextImporteDiario.setText(aloj.getImporteDiario()+"");
+            jTextImporteDiario.setEnabled(true);
+            
+            jTDescripcionMenu.setText(aloj.getDescServicios()+"");
+            jTDescripcionMenu.setEnabled(true);
+
+            jTIdAlojamiento.setText(aloj.getIdAlojamiento()+"");
+            jTIdAlojamiento.setEnabled(false);
+            
+            jREstado.setSelected(aloj.isEstado());
+            jREstado.setEnabled(true);
+            
+            jBModificar.setEnabled(true);
+            
+        } else {
+            JOptionPane.showMessageDialog(null, "No hay Ninguna Seleccionada");
+        }
+    }//GEN-LAST:event_jTAlojamientosMouseClicked
+
+    private void jCBoxServiciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBoxServiciosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCBoxServiciosActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.toedter.calendar.JDateChooser JDChooserIn;
-    private com.toedter.calendar.JDateChooser JDChooserOut;
-    private javax.swing.JButton jButtonBuscar;
-    private javax.swing.JButton jButtonCancelar;
-    private javax.swing.JButton jButtonEliminar;
-    private javax.swing.JButton jButtonGuardar;
-    private javax.swing.JButton jButtonModificar;
-    private javax.swing.JButton jButtonSalir;
+    private javax.swing.JButton jBBuscar;
+    private javax.swing.JButton jBCancelar;
+    private javax.swing.JButton jBEliminar;
+    private javax.swing.JButton jBGuardar;
+    private javax.swing.JButton jBModificar;
+    private javax.swing.JButton jBNuevo;
+    private javax.swing.JButton jBSalir;
     private javax.swing.JComboBox<String> jCBoxServicios;
     private javax.swing.JComboBox<String> jCBoxTipoAlojamiento;
     private com.toedter.calendar.JDayChooser jDayChooser1;
@@ -382,16 +584,19 @@ public class FormularioAlojamiento extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JList<String> jList1;
-    private javax.swing.JRadioButton jRadioButtonDisp;
+    private javax.swing.JRadioButton jREstado;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JTable jTAlojamientos;
+    private javax.swing.JTextField jTCiudadDest;
+    private javax.swing.JTextArea jTDescripcionMenu;
+    private javax.swing.JTextField jTIdAlojamiento;
+    private javax.swing.JTextField jTNombre;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTableMenus;
-    private javax.swing.JTextField jTextCiudadDest;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextImporteDiario;
     // End of variables declaration//GEN-END:variables
 }

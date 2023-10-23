@@ -9,6 +9,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -97,8 +99,79 @@ public class PasajeData {
         return idPasajeRepetido;
         
     }
-
     
+    public Pasaje buscarPasajeIDCiudad(int idCiudad) {
+
+        
+        String sql = "SELECT idPasaje, tipoTransporte, ciudadOrigen, ciudadDest, estado FROM pasaje WHERE ciudadOrigen=? OR ciudadDest=?";
+        Pasaje pasajeEncontrado = null;
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idCiudad);
+            ps.setInt(2, idCiudad);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                JOptionPane.showMessageDialog(null, "Se ha encontrado pasajes con ese nombre de ciudad");
+                pasajeEncontrado = new Pasaje();
+                Ciudad ciudadOR = new Ciudad();
+                Ciudad ciudadDEST = new Ciudad();
+                CiudadData city = new CiudadData();
+                
+                pasajeEncontrado.setIdPasaje(rs.getInt("idPasaje"));
+                pasajeEncontrado.setTipoTransporte(rs.getString("tipoTransporte"));
+                pasajeEncontrado.setImporte(rs.getDouble("importe"));
+                ciudadOR = city.buscarCiudadID(rs.getInt("ciudadOrigen"));
+                ciudadDEST = city.buscarCiudadID(rs.getInt("ciudadDest"));
+                pasajeEncontrado.setCiudadOrigen(ciudadOR);
+                pasajeEncontrado.setCiudadDest(ciudadDEST);
+                pasajeEncontrado.setEstado(rs.getBoolean("estado"));
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al Acceder a la tabla Pasaje " + ex.getMessage());
+        }
+        return pasajeEncontrado;
+    }
+
+    public List<Pasaje> listarPasajes(int idCiudad) {
+        
+        String sql = "SELECT idPasaje, tipoTransporte, ciudadOrigen, ciudadDest, importe, estado FROM pasaje WHERE ciudadOrigen=? OR ciudadDest=?";
+        
+        ArrayList<Pasaje> pasajesEncontrados = new ArrayList<>();
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idCiudad);
+            ps.setInt(2, idCiudad);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Pasaje pasajeEncontrado = new Pasaje();
+                Ciudad ciudadOR = new Ciudad();
+                Ciudad ciudadDEST = new Ciudad();
+                CiudadData city = new CiudadData();
+                pasajeEncontrado.setIdPasaje(rs.getInt("idPasaje"));
+                pasajeEncontrado.setTipoTransporte(rs.getString("tipoTransporte"));
+                pasajeEncontrado.setImporte(rs.getDouble("importe"));
+                ciudadOR = city.buscarCiudadID(rs.getInt("ciudadOrigen"));
+                ciudadDEST = city.buscarCiudadID(rs.getInt("ciudadDest"));
+                pasajeEncontrado.setCiudadOrigen(ciudadOR);
+                pasajeEncontrado.setCiudadDest(ciudadDEST);
+                pasajeEncontrado.setEstado(rs.getBoolean("estado"));
+
+                pasajesEncontrados.add(pasajeEncontrado);
+
+            }
+
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla pasaje " + ex.getMessage());
+
+        }
+        return pasajesEncontrados;
+
+    }
     
     
     

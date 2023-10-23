@@ -27,10 +27,12 @@ public class TurismoGrupo77 {
     public static void main(String[] args) {
         
        
-   Ciudad ciudad = new Ciudad("Misiones","Argentina","Mendoza",true);
+   Ciudad ciudad = new Ciudad(21,"Rosario","Argentina","Buenos Aires",true);
    CiudadData ciudadData = new CiudadData();
    
-   Ciudad ciudad1 = new Ciudad("Cordoba","Argentina","Buenos Aires",true);
+   ciudadData.eliminarCiudad(21);
+   
+  /* Ciudad ciudad1 = new Ciudad("Cordoba","Argentina","Buenos Aires",true);
    
    Ciudad c1 = ciudadData.buscarCiudad("Cordoba");
    Ciudad c2 = ciudadData.buscarCiudad("Rosario");
@@ -49,7 +51,7 @@ public class TurismoGrupo77 {
    PaqueteData paqueteData = new PaqueteData();
    paqueteData.guardarPaquete(paquete);
         
-        
+     */   
         
     }
     

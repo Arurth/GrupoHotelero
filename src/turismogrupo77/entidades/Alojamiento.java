@@ -12,42 +12,70 @@ import java.time.LocalDate;
  * @author Matias
  */
 public class Alojamiento {
-    private int idAlojamiento;       
+    private int idAlojamiento;
+    private String nombre;
+    private String tipoAlojamiento;
     private LocalDate fechaIn;
     private LocalDate fechaOut;
     private String servicios;
+    private String descServicios;
     private double importeDiario;
     private Ciudad ciudadDest;
     private boolean estado;
+    
 
     public Alojamiento() {
     }
+    
+    public Alojamiento(int idAlojamiento, String nombre, String tipoAlojamiento, String servicios, String descServicios, double importeDiario, Ciudad ciudadDest, boolean estado) {
+        this.idAlojamiento = idAlojamiento;
+        this.servicios = servicios;
+        this.descServicios =descServicios;
+        this.importeDiario = importeDiario;
+        this.ciudadDest = ciudadDest;
+        this.estado = estado;
+        this.nombre = nombre;
+        this.tipoAlojamiento = tipoAlojamiento;
+    }
 
-    public Alojamiento(int idAlojamiento, LocalDate fechaIn, LocalDate fechaOut, String servicios, double importe, Ciudad ciudadDest, boolean estado) {
+    public Alojamiento(int idAlojamiento, String nombre, String tipoAlojamiento, LocalDate fechaIn, LocalDate fechaOut, String servicios, String descServicios, double importeDiario, Ciudad ciudadDest, boolean estado) {
         this.idAlojamiento = idAlojamiento;
         this.fechaIn = fechaIn;
         this.fechaOut = fechaOut;
         this.servicios = servicios;
-        this.importeDiario = importe;
+        this.descServicios =descServicios;
+        this.importeDiario = importeDiario;
         this.ciudadDest = ciudadDest;
         this.estado = estado;
+        this.nombre = nombre;
+        this.tipoAlojamiento = tipoAlojamiento;
     }
 
-    public Alojamiento(LocalDate fechaIn, LocalDate fechaOut, String servicios, double importe, Ciudad ciudadDest,boolean estado) {
-        this.fechaIn = fechaIn;
-        this.fechaOut = fechaOut;
+    public Alojamiento(String nombre, String tipoAlojamiento, String servicios, String descServicios, double importeDiario, Ciudad ciudadDest, boolean estado) {
+        
         this.servicios = servicios;
-        this.importeDiario = importe;
+        this.descServicios =descServicios;
+        this.importeDiario = importeDiario;
         this.ciudadDest = ciudadDest;
         this.estado = estado;
+        this.nombre = nombre;
+        this.tipoAlojamiento = tipoAlojamiento;
     }
 
-    public boolean isEstado() {
-        return estado;
+    public String getTipoAlojamiento() {
+        return tipoAlojamiento;
     }
 
-    public void setEstado(boolean estado) {
-        this.estado = estado;
+    public void setTipoAlojamiento(String tipoAlojamiento) {
+        this.tipoAlojamiento = tipoAlojamiento;
+    }
+
+    public String getDescServicios() {
+        return descServicios;
+    }
+
+    public void setDescServicios(String descServicios) {
+        this.descServicios = descServicios;
     }
 
     public int getIdAlojamiento() {
@@ -97,6 +125,24 @@ public class Alojamiento {
     public void setCiudadDest(Ciudad ciudadDest) {
         this.ciudadDest = ciudadDest;
     }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    
 
     @Override
     public String toString() {

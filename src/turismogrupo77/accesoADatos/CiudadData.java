@@ -31,6 +31,32 @@ public class CiudadData {
     }
     String nombre;
     String sql;
+    
+    public Ciudad buscarCiudadID(int idCiudad) {
+
+        //busca una ciudad con ese nombre
+        String sql = "SELECT idCiudad, nombre, provincia, pais, estado FROM ciudad WHERE idCiudad=?";
+        Ciudad ciudadEncontrada = null;
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idCiudad);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                //JOptionPane.showMessageDialog(null, "Se ha encontrado la ciudad con ese ID");
+                ciudadEncontrada = new Ciudad();
+                ciudadEncontrada.setIdCiudad(rs.getInt("idCiudad"));
+                ciudadEncontrada.setNombre(rs.getString("nombre"));
+                ciudadEncontrada.setPais(rs.getString("pais"));
+                ciudadEncontrada.setProvincia(rs.getString("provincia"));
+                ciudadEncontrada.setEstado(rs.getBoolean("estado"));
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al Acceder a la base de datos " + ex.getMessage());
+        }
+        return ciudadEncontrada;
+    }
+    
 
     public Ciudad buscarCiudad(String nombre) {
 
