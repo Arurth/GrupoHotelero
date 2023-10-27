@@ -52,7 +52,7 @@ public class VistaPaquetes extends javax.swing.JInternalFrame {
     private void borrarTablaPasaje() {
         int indice = modeloPasaje.getRowCount() - 1;
         for (int i = indice; i >= 0; i--) {
-            modeloAlojamiento.removeRow(i);
+            modeloPasaje.removeRow(i);
         }
     }
 
@@ -77,6 +77,15 @@ public class VistaPaquetes extends javax.swing.JInternalFrame {
     }
 
     private void borrarContenidoFormulario() {
+        borrarTablaAlojamiento();
+        borrarTablaPasaje();
+        jTNombreOrigen.setText("");
+        jtNombreDestino.setText("");
+        jDInicio.setCalendar(null);
+        jDSalida.setCalendar(null);
+        jTTemporada.setText("");
+        jTCantDias.setText("");
+        jTImporteTotal.setText("");
 
     }
 
@@ -96,7 +105,7 @@ public class VistaPaquetes extends javax.swing.JInternalFrame {
         jtNombreDestino = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jBConfirmar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTAlojamiento = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
@@ -151,10 +160,10 @@ public class VistaPaquetes extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Ingrese ciudad de destino :");
 
-        jButton1.setText("Confirmar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jBConfirmar.setText("Confirmar");
+        jBConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jBConfirmarActionPerformed(evt);
             }
         });
 
@@ -180,6 +189,11 @@ public class VistaPaquetes extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(jTAlojamiento);
 
         jButton2.setText("Cancelar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Salir");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -224,11 +238,18 @@ public class VistaPaquetes extends javax.swing.JInternalFrame {
 
         jLabel9.setText("Fecha Salida:");
 
+        jTImporteTotal.setEnabled(false);
+
         jLabel11.setText("Total de Días:");
+
+        jTCantDias.setEnabled(false);
 
         jLabel4.setText("Cantidad de Personas:");
 
+        jSCantPersonas.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
         jSCantPersonas.setValue(1);
+
+        jTTemporada.setEnabled(false);
 
         jLabel5.setText("Temporada:");
 
@@ -267,7 +288,7 @@ public class VistaPaquetes extends javax.swing.JInternalFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jtNombreDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jButton1)
+                                        .addComponent(jBConfirmar)
                                         .addGap(18, 18, 18)
                                         .addComponent(jButton2)
                                         .addGap(18, 18, 18)
@@ -354,7 +375,7 @@ public class VistaPaquetes extends javax.swing.JInternalFrame {
                     .addComponent(jSCantPersonas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(jBConfirmar)
                     .addComponent(jButton2)
                     .addComponent(jButton3))
                 .addGap(119, 119, 119))
@@ -375,9 +396,19 @@ public class VistaPaquetes extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jBConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBConfirmarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        if (!jTImporteTotal.equals("")) {
+            JOptionPane.showMessageDialog(null, "Debe Completar Todos los Datos para Confirmar");
+            return;
+        } else {
+            jBConfirmar.setEnabled(true);
+            JOptionPane.showMessageDialog(null, "Se Grabó el Paquete");
+            borrarContenidoFormulario();
+        }
+
+
+    }//GEN-LAST:event_jBConfirmarActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // Busca la ciudad de Origen y Completa la Tabla Pasajes con lo Disponible
@@ -395,7 +426,7 @@ public class VistaPaquetes extends javax.swing.JInternalFrame {
         ciudadOrigen = city.buscarCiudad(jTNombreOrigen.getText());
         ciudadDestino = city.buscarCiudad(jtNombreDestino.getText());
 
-        if (ciudadOrigen != null & ciudadDestino != null) {
+        if (ciudadOrigen != null && ciudadDestino != null) {
 
             //JOptionPane.showMessageDialog(rootPane, "Se ha encontrado una Ciudad Origen con el nombre " + jTNombreOrigen.getText());
 
@@ -430,6 +461,11 @@ public class VistaPaquetes extends javax.swing.JInternalFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         double importeAlojamiento;
         double importePasaje;
+
+        if (jDInicio.getDate() == null && jDSalida.getDate() == null) {
+            JOptionPane.showMessageDialog(null, "Debe Completar Ambos Campos Fecha de Inicio");
+            return;
+        }
         // Calcula el Importe Total del Paquete
 
         //calcular si es temporada alta, media, o baja
@@ -455,42 +491,47 @@ public class VistaPaquetes extends javax.swing.JInternalFrame {
             long totaldias = ChronoUnit.DAYS.between(fechaI, fechaF);
             jTCantDias.setText(totaldias + "");
         }
-        
-        if(jTAlojamiento.getSelectedRow()!=-1 && jTPasaje.getSelectedRow()!=-1){
-        importeAlojamiento = (Double) modeloAlojamiento.getValueAt(jTAlojamiento.getSelectedRow(), 2);
-        importePasaje = (Double) modeloPasaje.getValueAt(jTPasaje.getSelectedRow(), 2);
-        //calculo usando los días y cantidad de Personas en Temporada Baja:
-        double importeTotalBaja = ((importeAlojamiento * Double.valueOf(jTCantDias.getText())) * (Integer) jSCantPersonas.getValue() + (importePasaje * (Integer) jSCantPersonas.getValue()));
-        //se Agrega o no el porcentaje que correspondería si es Temporada Alta:
-        double importeTotalAlta = importeTotalBaja * 1.3;
-        //se Agrega o no el porcentaje que correspondería si es Temporada Media:
-        double importeTotalMedia = importeTotalBaja * 1.15;
+
+        if (jTAlojamiento.getSelectedRow() != -1 && jTPasaje.getSelectedRow() != -1) {
+            importeAlojamiento = (Double) modeloAlojamiento.getValueAt(jTAlojamiento.getSelectedRow(), 2);
+            importePasaje = (Double) modeloPasaje.getValueAt(jTPasaje.getSelectedRow(), 2);
+            //calculo usando los días y cantidad de Personas en Temporada Baja:
+            double importeTotalBaja = ((importeAlojamiento * Double.valueOf(jTCantDias.getText())) * (Integer) jSCantPersonas.getValue() + (importePasaje * (Integer) jSCantPersonas.getValue()));
+            //se Agrega o no el porcentaje que correspondería si es Temporada Alta:
+            double importeTotalAlta = importeTotalBaja * 1.3;
+            //se Agrega o no el porcentaje que correspondería si es Temporada Media:
+            double importeTotalMedia = importeTotalBaja * 1.15;
         } else {
             JOptionPane.showMessageDialog(null, "Debe Seleccionar Pasaje y Alojamiento");
             return;
         }
-        
+
         //calculo usando los días y cantidad de Personas en Temporada Baja:
         double importeTotalBaja = ((importeAlojamiento * Double.valueOf(jTCantDias.getText())) * (Integer) jSCantPersonas.getValue() + (importePasaje * (Integer) jSCantPersonas.getValue()));
         //se Agrega o no el porcentaje que correspondería si es Temporada Alta:
         double importeTotalAlta = importeTotalBaja * 1.3;
         //se Agrega o no el porcentaje que correspondería si es Temporada Media:
         double importeTotalMedia = importeTotalBaja * 1.15;
-        
-        if(jTTemporada.getText().equals("Alta")){
-            jTImporteTotal.setText(importeTotalAlta+"");
-        } else if(jTTemporada.getText().equals("Media")) {
-            jTImporteTotal.setText(importeTotalMedia+"");
+
+        if (jTTemporada.getText().equals("Alta")) {
+            jTImporteTotal.setText(importeTotalAlta + "");
+        } else if (jTTemporada.getText().equals("Media")) {
+            jTImporteTotal.setText(importeTotalMedia + "");
         } else {
-            jTImporteTotal.setText(importeTotalBaja+"");
+            jTImporteTotal.setText(importeTotalBaja + "");
         }
 
 
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        borrarContenidoFormulario();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jBConfirmar;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
