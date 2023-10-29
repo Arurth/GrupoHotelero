@@ -142,12 +142,14 @@ public class Alojamiento {
         this.nombre = nombre;
     }
 
-    
-
     @Override
     public String toString() {
-        return "Alojamiento{" + "idAlojamiento=" + idAlojamiento + '}';
+        return idAlojamiento + nombre + tipoAlojamiento + " IMPORTE: " + importeDiario;
     }
+
+    
+
+    
     
     
 }

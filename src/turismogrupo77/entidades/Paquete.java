@@ -19,11 +19,15 @@ public class Paquete {
     private Pasaje pasaje;
     private LocalDate fechaSalida;
     private LocalDate fechaLLegada;
+    private boolean estado;
+    private int cantPersonas;
+    private double importe;
+    private String cliente;
 
     public Paquete() {
     }
 
-    public Paquete(int idPaquete, Ciudad origen, Ciudad destino, Alojamiento alojamiento, Pasaje pasaje, LocalDate fechaSalida, LocalDate fechaLLegada) {
+    public Paquete(int idPaquete, Ciudad origen, Ciudad destino, Alojamiento alojamiento, Pasaje pasaje, LocalDate fechaSalida, LocalDate fechaLLegada, boolean estado, int cantPersonas, double importe, String cliente) {
         this.idPaquete = idPaquete;
         this.origen = origen;
         this.destino = destino;
@@ -31,16 +35,60 @@ public class Paquete {
         this.pasaje = pasaje;
         this.fechaSalida = fechaSalida;
         this.fechaLLegada = fechaLLegada;
+        this.estado = estado;
+        this.cantPersonas = cantPersonas;
+        this.importe = importe;
+        this.cliente = cliente;
     }
 
-    public Paquete(Ciudad origen, Ciudad destino, Alojamiento alojamiento, Pasaje pasaje, LocalDate fechaSalida, LocalDate fechaLLegada) {
+    public Paquete(Ciudad origen, Ciudad destino, Alojamiento alojamiento, Pasaje pasaje, LocalDate fechaSalida, LocalDate fechaLLegada, boolean estado, int cantPersonas, double importe, String cliente) {
         this.origen = origen;
         this.destino = destino;
         this.alojamiento = alojamiento;
         this.pasaje = pasaje;
         this.fechaSalida = fechaSalida;
         this.fechaLLegada = fechaLLegada;
+        this.estado = estado;
+        this.cantPersonas = cantPersonas;
+        this.importe = importe;
+        this.cliente = cliente;
     }
+
+    public int getCantPersonas() {
+        return cantPersonas;
+    }
+
+    public void setCantPersonas(int cantPersonas) {
+        this.cantPersonas = cantPersonas;
+    }
+
+    public double getImporte() {
+        return importe;
+    }
+
+    public void setImporte(double importe) {
+        this.importe = importe;
+    }
+
+    public String getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(String cliente) {
+        this.cliente = cliente;
+    }
+
+    
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+
+   
 
     public LocalDate getFechaSalida() {
         return fechaSalida;
@@ -57,9 +105,6 @@ public class Paquete {
     public void setFechaLLegada(LocalDate fechaLLegada) {
         this.fechaLLegada = fechaLLegada;
     }
-
-
-    
 
     public int getIdPaquete() {
         return idPaquete;

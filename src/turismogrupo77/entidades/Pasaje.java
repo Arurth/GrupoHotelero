@@ -84,12 +84,14 @@ public class Pasaje {
         this.estado = estado;
     }
 
-    
-
     @Override
     public String toString() {
-        return "Pasaje{" + "idPasaje=" + idPasaje + ", tipoTransporte=" + tipoTransporte + ", ciudad=" + ciudadOrigen + '}';
+        return idPasaje + " " +tipoTransporte + " Precio $ " + importe;
     }
+
+    
+
+    
     
     
 }

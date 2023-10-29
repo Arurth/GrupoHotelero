@@ -4,13 +4,14 @@
  */
 package turismogrupo77.vistas;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -45,6 +46,7 @@ public class ListadoPaquetes extends javax.swing.JInternalFrame {
         filaCabecera.add("ID");
         filaCabecera.add("Origen");
         filaCabecera.add("Destino");
+        filaCabecera.add("Cliente");
 
         for (Object it : filaCabecera) {
             modelo.addColumn(it);
@@ -60,6 +62,28 @@ public class ListadoPaquetes extends javax.swing.JInternalFrame {
     }
 
     private void borrarContenidoFormulario() {
+        jDSalida.setDate(null);
+        jDInicio.setDate(null);
+        jDSalida.setEnabled(false);
+        jDInicio.setEnabled(false);
+
+        jCAlojamiento.removeAllItems();
+        jCAlojamiento.setEnabled(false);
+        jCTransporte.removeAllItems();
+        jCTransporte.setEnabled(false);
+
+        jCEstado.setEnabled(false);
+        jCEstado.setSelected(false);
+
+        jBModificar.setEnabled(false);
+        jTextField1.setEnabled(false);
+        jTextField1.setText("");
+        jTNombreCiudad.setEnabled(false);
+        jTNombreCiudad.setText("");
+        jTCliente.setEnabled(true);
+        jTCliente.setText("");
+
+        borrarTabla();
 
     }
 
@@ -94,28 +118,37 @@ public class ListadoPaquetes extends javax.swing.JInternalFrame {
         jLabel8 = new javax.swing.JLabel();
         jTImporte = new javax.swing.JTextField();
         jBCancelar = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        jTCliente = new javax.swing.JTextField();
 
         jLabel1.setText("LISTADO DE PAQUETES");
 
         jTPaquete.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "ID", "Origen", "Destino"
+                "ID", "Origen", "Destino", "Cliente"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        jTPaquete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTPaqueteMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(jTPaquete);
@@ -129,11 +162,6 @@ public class ListadoPaquetes extends javax.swing.JInternalFrame {
         jLabel3.setText("Fecha Salida");
 
         jLabel4.setText("Alojamiento");
-
-        jCAlojamiento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jCTransporte.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jCTransporte.setEnabled(false);
 
         jLabel5.setText("Transporte");
 
@@ -152,9 +180,21 @@ public class ListadoPaquetes extends javax.swing.JInternalFrame {
 
         jLabel6.setText("Buscar Por:");
 
-        jCTipoBusqueda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ciudad de Origen", "Ciudad de Destino", "ID Paquete", "Todos Disponibles", "No Disponibles" }));
+        jCTipoBusqueda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nombre Cliente", "Ciudad de Origen", "Ciudad de Destino", "ID Paquete", "Todos Disponibles", "No Disponibles" }));
+        jCTipoBusqueda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jCTipoBusquedaMouseClicked(evt);
+            }
+        });
+        jCTipoBusqueda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCTipoBusquedaActionPerformed(evt);
+            }
+        });
 
-        jLabel7.setText("Ciudad: ");
+        jLabel7.setText("Nombre Ciudad");
+
+        jTNombreCiudad.setEnabled(false);
 
         jBListar.setText("Listar");
         jBListar.addActionListener(new java.awt.event.ActionListener() {
@@ -168,31 +208,26 @@ public class ListadoPaquetes extends javax.swing.JInternalFrame {
         jTImporte.setEnabled(false);
 
         jBCancelar.setText("Cancelar");
+        jBCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBCancelarActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setText("ID Paquete");
+
+        jTextField1.setEnabled(false);
+
+        jLabel10.setText("Nombre Cliente");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 549, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(154, 154, 154)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jCTipoBusqueda, 0, 131, Short.MAX_VALUE)
-                                    .addComponent(jTNombreCiudad))
-                                .addGap(37, 37, 37)
-                                .addComponent(jBListar)))))
-                .addGap(0, 22, Short.MAX_VALUE))
+                .addGap(45, 45, 45)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 549, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(53, 53, 53)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -235,24 +270,53 @@ public class ListadoPaquetes extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jTImporte, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))))))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(175, 175, 175)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel10)))
+                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jCTipoBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
+                        .addComponent(jBListar))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+                        .addComponent(jTNombreCiudad, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jTCliente, javax.swing.GroupLayout.Alignment.LEADING)))
+                .addGap(327, 493, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCTipoBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
-                    .addComponent(jCTipoBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jBListar))
+                .addGap(2, 2, 2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(jTCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jTNombreCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBListar))
-                .addGap(39, 39, 39)
+                    .addComponent(jTNombreCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(5, 5, 5)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(jTImporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -276,7 +340,7 @@ public class ListadoPaquetes extends javax.swing.JInternalFrame {
                         .addComponent(jCEstado)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jBModificar)
                             .addComponent(jButton2)
@@ -294,33 +358,177 @@ public class ListadoPaquetes extends javax.swing.JInternalFrame {
 
     private void jBListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBListarActionPerformed
         // TODO add your handling code here:
+        borrarTabla();
         Ciudad ciudadEncontrada = new Ciudad();
         CiudadData city = new CiudadData();
         Paquete paquete = new Paquete();
         PaqueteData pack = new PaqueteData();
         ciudadEncontrada = city.buscarCiudad(jTNombreCiudad.getText());
 
-        if (ciudadEncontrada != null) {
+        /* if (ciudadEncontrada != null) {
             ciudadEncontrada = city.buscarCiudad(jTNombreCiudad.getText());
         } else {
             JOptionPane.showMessageDialog(null, "No Existe una Ciudad con ese Nombre");
             return;
+        }*/
+        if (jCTipoBusqueda.getSelectedItem() == "Nombre Cliente") {
+            if (jTCliente.getText() == "") {
+                JOptionPane.showMessageDialog(null, "Debe Ingresar un nombre");
+                return;
+            }
+            List<Paquete> paquetes = pack.listarPaquetesNombreCliente(jTCliente.getText());
+            if (paquetes.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "No hay ningun Paquete con ese nombre");
+                return;
+            }
+            for (Paquete p : paquetes) {
+                modelo.addRow(new Object[]{p.getIdPaquete(), p.getOrigen().getNombre(), p.getDestino().getNombre(), p.getCliente()});
+            }
         }
 
         if (jCTipoBusqueda.getSelectedItem() == "Ciudad de Origen") {
+            if (jTNombreCiudad.getText() == "") {
+                JOptionPane.showMessageDialog(null, "Debe Ingresar un nombre de Ciudad");
+                return;
+            }
+            if (ciudadEncontrada != null) {
+                ciudadEncontrada = city.buscarCiudad(jTNombreCiudad.getText());
+            } else {
+                JOptionPane.showMessageDialog(null, "No Existe una Ciudad con ese Nombre");
+                return;
+            }
             List<Paquete> paquetes = pack.listarPaquetesCiudadOrigen(ciudadEncontrada);
 
             for (Paquete p : paquetes) {
-                modelo.addRow(new Object[]{p.getIdPaquete(), p.getOrigen().getNombre(), p.getDestino().getNombre()});
+                modelo.addRow(new Object[]{p.getIdPaquete(), p.getOrigen().getNombre(), p.getDestino().getNombre(), p.getCliente()});
             }
-        } else if (jCTipoBusqueda.getSelectedItem()=="Ciudad de Destino") {
+        } else if (jCTipoBusqueda.getSelectedItem() == "Ciudad de Destino") {
+            if (jTNombreCiudad.getText() == "") {
+                JOptionPane.showMessageDialog(null, "Debe Ingresar un nombre de Ciudad");
+                return;
+            }
+            if (ciudadEncontrada != null) {
+                ciudadEncontrada = city.buscarCiudad(jTNombreCiudad.getText());
+            } else {
+                JOptionPane.showMessageDialog(null, "No Existe una Ciudad con ese Nombre");
+                return;
+            }
             List<Paquete> paquetes = pack.listarPaquetesCiudadDestino(ciudadEncontrada);
 
             for (Paquete p : paquetes) {
-                modelo.addRow(new Object[]{p.getIdPaquete(), p.getOrigen().getNombre(), p.getDestino().getNombre()});
+                modelo.addRow(new Object[]{p.getIdPaquete(), p.getOrigen().getNombre(), p.getDestino().getNombre(), p.getCliente()});
+            }
+        }
+
+        if (jCTipoBusqueda.getSelectedItem() == "ID Paquete") {
+
+            if (jTextField1.getText() == "") {
+                JOptionPane.showMessageDialog(null, "Debe Ingresar un ID de Paquete");
+                return;
+            }
+
+            List<Paquete> paquetes = pack.listarPaquetesID(Integer.parseInt(jTextField1.getText()));
+
+            for (Paquete p : paquetes) {
+                modelo.addRow(new Object[]{p.getIdPaquete(), p.getOrigen().getNombre(), p.getDestino().getNombre(), p.getCliente()});
+            }
+        }
+
+        if (jCTipoBusqueda.getSelectedItem() == "Todos Disponibles") {
+            boolean estado = true;
+            List<Paquete> paquetes = pack.listarPaquetesActivos(estado);
+            for (Paquete p : paquetes) {
+                modelo.addRow(new Object[]{p.getIdPaquete(), p.getOrigen().getNombre(), p.getDestino().getNombre(), p.getCliente()});
+            }
+        } else if (jCTipoBusqueda.getSelectedItem() == "No Disponibles") {
+            boolean estado = false;
+            List<Paquete> paquetes = pack.listarPaquetesActivos(estado);
+            for (Paquete p : paquetes) {
+                modelo.addRow(new Object[]{p.getIdPaquete(), p.getOrigen().getNombre(), p.getDestino().getNombre(), p.getCliente()});
             }
         }
     }//GEN-LAST:event_jBListarActionPerformed
+
+    private void jCTipoBusquedaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCTipoBusquedaMouseClicked
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_jCTipoBusquedaMouseClicked
+
+    private void jCTipoBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCTipoBusquedaActionPerformed
+        // Al tocar el botón se van habilitando los cuadros de texto para el ingreso
+        borrarContenidoFormulario();
+        if (jCTipoBusqueda.getSelectedItem() == "Ciudad de Origen" || jCTipoBusqueda.getSelectedItem() == "Ciudad de Destino") {
+            jTNombreCiudad.setEnabled(true);
+            jTextField1.setEnabled(false);
+            jTCliente.setEnabled(false);
+        } else if (jCTipoBusqueda.getSelectedItem() == "ID Paquete") {
+            jTNombreCiudad.setEnabled(false);
+            jTextField1.setEnabled(true);
+            jTCliente.setEnabled(false);
+        } else if (jCTipoBusqueda.getSelectedItem() == "Nombre Cliente") {
+            jTNombreCiudad.setEnabled(false);
+            jTextField1.setEnabled(false);
+            jTCliente.setEnabled(true);
+        } else {
+            jTNombreCiudad.setEnabled(false);
+            jTextField1.setEnabled(false);
+            jTCliente.setEnabled(false);
+        }
+    }//GEN-LAST:event_jCTipoBusquedaActionPerformed
+
+    private void jTPaqueteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTPaqueteMouseClicked
+        // Va a llenar lo de abajo una vez que lo tenga seleccionado:
+        jDInicio.setEnabled(true);
+        jDSalida.setEnabled(true);
+        jCEstado.setEnabled(true);
+
+        Paquete paqueteSeleccionado = new Paquete();
+        PaqueteData pack = new PaqueteData();
+        Ciudad ciudadOrigen = new Ciudad();
+        Ciudad ciudadDestino = new Ciudad();
+        CiudadData city = new CiudadData();
+        Pasaje pasajeEncontrado = new Pasaje();
+        PasajeData pass = new PasajeData();
+        Alojamiento alojamientoEncontrado = new Alojamiento();
+        AlojamientoData aloj = new AlojamientoData();
+
+        int idPaquete = (Integer) modelo.getValueAt(jTPaquete.getSelectedRow(), 0);
+        paqueteSeleccionado = pack.buscarPaquete(idPaquete);
+
+        //completa los campos fecha del elemento seleccionado
+        jDInicio.setDate(Date.valueOf(paqueteSeleccionado.getFechaLLegada()));
+        jDSalida.setDate(Date.valueOf(paqueteSeleccionado.getFechaSalida()));
+
+        //completa el campo importe con el elemento seleccionado
+        jTImporte.setText(paqueteSeleccionado.getImporte() + "");
+
+        //completa el campo estado con el elemento seleccionado
+        jCEstado.setSelected(paqueteSeleccionado.isEstado());
+
+        
+        //completa el Combo box con los Alojamientos Disponibles
+        jCAlojamiento.removeAllItems();
+        alojamientoEncontrado = aloj.buscarAlojamiento(paqueteSeleccionado.getAlojamiento().getIdAlojamiento());
+        List<Alojamiento> alojamientos = aloj.listarAlojamientosIDciudad(alojamientoEncontrado.getCiudadDest().getIdCiudad());
+        for (Alojamiento item : alojamientos) {
+            jCAlojamiento.addItem(item + "");
+        }
+        jCAlojamiento.setSelectedItem(alojamientoEncontrado + "");
+        
+        //completa el Combo box con los Tipos de Transporte Disponibles
+        jCTransporte.removeAllItems();
+        List<Pasaje> pasajes = pass.listarPasajesOrigenDestino(paqueteSeleccionado.getOrigen().getIdCiudad(), paqueteSeleccionado.getDestino().getIdCiudad());
+        for (Pasaje item : pasajes) {
+            jCTransporte.addItem(item + "");
+        }
+        jCTransporte.setSelectedItem(paqueteSeleccionado.getPasaje()+"");
+
+    }//GEN-LAST:event_jTPaqueteMouseClicked
+
+    private void jBCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarActionPerformed
+        // TODO add your handling code here:
+        borrarContenidoFormulario();
+    }//GEN-LAST:event_jBCancelarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -335,6 +543,7 @@ public class ListadoPaquetes extends javax.swing.JInternalFrame {
     private com.toedter.calendar.JDateChooser jDInicio;
     private com.toedter.calendar.JDateChooser jDSalida;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -342,9 +551,12 @@ public class ListadoPaquetes extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTCliente;
     private javax.swing.JTextField jTImporte;
     private javax.swing.JTextField jTNombreCiudad;
     private javax.swing.JTable jTPaquete;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
