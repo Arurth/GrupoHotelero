@@ -30,6 +30,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         jMCiudades = new javax.swing.JMenu();
         jGestion = new javax.swing.JMenuItem();
         jListado = new javax.swing.JMenuItem();
@@ -59,13 +60,21 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jMenuItem3.setText("Vista Paquetes");
+        jMenuItem3.setText("Gestion");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem3ActionPerformed(evt);
             }
         });
         jMenu1.add(jMenuItem3);
+
+        jMenuItem4.setText("Listado");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem4);
 
         jMenuBar1.add(jMenu1);
 
@@ -96,7 +105,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jMenu3.setText("Alojamientos");
 
-        jMenuItem2.setText("Gestor Alojamiento");
+        jMenuItem2.setText("Gestion");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);
@@ -109,7 +118,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jMenu2.setText("Pasajes");
 
-        jMenuItem1.setText("Gestor");
+        jMenuItem1.setText("Gestion");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
@@ -193,6 +202,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
         escritorio.add(vpv);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        ListadoPaquetes lpv = new ListadoPaquetes();
+        lpv.setVisible(true);
+        escritorio.add(lpv);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -241,5 +259,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     // End of variables declaration//GEN-END:variables
 }

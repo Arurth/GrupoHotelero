@@ -9,14 +9,18 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import turismogrupo77.accesoADatos.AlojamientoData;
 import turismogrupo77.accesoADatos.CiudadData;
+import turismogrupo77.accesoADatos.PaqueteData;
 import turismogrupo77.accesoADatos.PasajeData;
 import turismogrupo77.entidades.Alojamiento;
 import turismogrupo77.entidades.Ciudad;
+import turismogrupo77.entidades.Paquete;
 import turismogrupo77.entidades.Pasaje;
 
 /**
@@ -61,6 +65,7 @@ public class VistaPaquetes extends javax.swing.JInternalFrame {
         ArrayList<Object> filaCabecera = new ArrayList<>();
         filaCabecera.add("ID");
         filaCabecera.add("Nombre");
+        filaCabecera.add("Tipo");
         filaCabecera.add("Importe");
 
         for (Object it : filaCabecera) {
@@ -105,7 +110,6 @@ public class VistaPaquetes extends javax.swing.JInternalFrame {
         jtNombreDestino = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jBConfirmar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTAlojamiento = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
@@ -127,6 +131,7 @@ public class VistaPaquetes extends javax.swing.JInternalFrame {
         jTTemporada = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -160,26 +165,19 @@ public class VistaPaquetes extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Ingrese ciudad de destino :");
 
-        jBConfirmar.setText("Confirmar");
-        jBConfirmar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBConfirmarActionPerformed(evt);
-            }
-        });
-
         jTAlojamiento.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Nombre", "Tipo", "Importe Diario"
+                "ID", "Nombre", "Tipo", "Importe Diario"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -253,12 +251,14 @@ public class VistaPaquetes extends javax.swing.JInternalFrame {
 
         jLabel5.setText("Temporada:");
 
-        jButton4.setText("Calcular Importe Total");
+        jButton4.setText("Calcular Importe Total y Confirmar");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
             }
         });
+
+        jLabel10.setText("Importe Total");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -288,34 +288,36 @@ public class VistaPaquetes extends javax.swing.JInternalFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jtNombreDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jBConfirmar)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jButton2)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jButton3))))
+                                        .addGap(105, 105, 105)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel10)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                                    .addComponent(jButton2)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(jButton3))
+                                                .addComponent(jButton4, javax.swing.GroupLayout.Alignment.LEADING))))))
                             .addComponent(jLabel7)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel9)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jDSalida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLabel11))
+                                        .addComponent(jDSalida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel8)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jDInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jLabel5)))
+                                        .addComponent(jDInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jTTemporada, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(30, 30, 30)
-                                        .addComponent(jButton4)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGap(197, 197, 197)
                                         .addComponent(jTImporteTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jTCantDias, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
@@ -331,7 +333,7 @@ public class VistaPaquetes extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jLabel1)
-                .addGap(48, 48, 48)
+                .addGap(52, 52, 52)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -360,25 +362,28 @@ public class VistaPaquetes extends javax.swing.JInternalFrame {
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(jTTemporada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel5)
-                                            .addComponent(jButton4)
-                                            .addComponent(jTImporteTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                            .addComponent(jTImporteTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel10)))))
                             .addComponent(jDInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(24, 24, 24)
+                        .addGap(20, 20, 20)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel11)
                             .addComponent(jTCantDias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9)))
+                            .addComponent(jLabel9)
+                            .addComponent(jButton4)))
                     .addComponent(jDSalida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jSCantPersonas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBConfirmar)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
-                .addGap(119, 119, 119))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(jSCantPersonas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton2)
+                            .addComponent(jButton3))))
+                .addContainerGap(165, Short.MAX_VALUE))
         );
 
         pack();
@@ -395,20 +400,6 @@ public class VistaPaquetes extends javax.swing.JInternalFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jBConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBConfirmarActionPerformed
-        // TODO add your handling code here:
-        if (!jTImporteTotal.equals("")) {
-            JOptionPane.showMessageDialog(null, "Debe Completar Todos los Datos para Confirmar");
-            return;
-        } else {
-            jBConfirmar.setEnabled(true);
-            JOptionPane.showMessageDialog(null, "Se Grabó el Paquete");
-            borrarContenidoFormulario();
-        }
-
-
-    }//GEN-LAST:event_jBConfirmarActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // Busca la ciudad de Origen y Completa la Tabla Pasajes con lo Disponible
@@ -428,17 +419,6 @@ public class VistaPaquetes extends javax.swing.JInternalFrame {
 
         if (ciudadOrigen != null && ciudadDestino != null) {
 
-            //JOptionPane.showMessageDialog(rootPane, "Se ha encontrado una Ciudad Origen con el nombre " + jTNombreOrigen.getText());
-
-            /*this.ciudad = ciudadOrigen;
-            jTNombre.setEnabled(true);
-            jCProvincia.setEnabled(true);
-            jREstado.setEnabled(true);
-            jBEliminar.setEnabled(true);
-            jBModificar.setEnabled(true);
-            jBGuardar.setEnabled(false);
-            jTPais.setEnabled(true);*/
-            //busca los pasajes con ese ID de ciudad de origen y destino
             List<Pasaje> pasajes = pass.listarPasajesOrigenDestino(ciudadOrigen.getIdCiudad(), ciudadDestino.getIdCiudad());
 
             for (Pasaje p : pasajes) {
@@ -448,7 +428,7 @@ public class VistaPaquetes extends javax.swing.JInternalFrame {
             List<Alojamiento> alojamientos = aloj.listarAlojamientosIDciudad(ciudadDestino.getIdCiudad());
 
             for (Alojamiento a : alojamientos) {
-                modeloAlojamiento.addRow(new Object[]{a.getIdAlojamiento(), a.getNombre(), a.getImporteDiario()});
+                modeloAlojamiento.addRow(new Object[]{a.getIdAlojamiento(), a.getNombre(), a.getTipoAlojamiento(),a.getImporteDiario()});
             }
 
         } else {
@@ -462,8 +442,8 @@ public class VistaPaquetes extends javax.swing.JInternalFrame {
         double importeAlojamiento;
         double importePasaje;
 
-        if (jDInicio.getDate() == null && jDSalida.getDate() == null) {
-            JOptionPane.showMessageDialog(null, "Debe Completar Ambos Campos Fecha de Inicio");
+        if (jDInicio.getDate() == null || jDSalida.getDate() == null) {
+            JOptionPane.showMessageDialog(null, "Debe Completar Ambos Campos de Fecha Inicio/Salida");
             return;
         }
         // Calcula el Importe Total del Paquete
@@ -476,7 +456,7 @@ public class VistaPaquetes extends javax.swing.JInternalFrame {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         if (fechaI.isAfter(fechaF)) {
-            JOptionPane.showMessageDialog(null, "La Fecha de Inicio no puede ser posterior a la de Salida");
+            JOptionPane.showMessageDialog(null, "La Fecha de Inicio no puede ser posterior a la de Salida :-)");
             return;
         } else {
             //calcula los dias de alojamiento
@@ -493,7 +473,7 @@ public class VistaPaquetes extends javax.swing.JInternalFrame {
         }
 
         if (jTAlojamiento.getSelectedRow() != -1 && jTPasaje.getSelectedRow() != -1) {
-            importeAlojamiento = (Double) modeloAlojamiento.getValueAt(jTAlojamiento.getSelectedRow(), 2);
+            importeAlojamiento = (Double) modeloAlojamiento.getValueAt(jTAlojamiento.getSelectedRow(), 3);
             importePasaje = (Double) modeloPasaje.getValueAt(jTPasaje.getSelectedRow(), 2);
             //calculo usando los días y cantidad de Personas en Temporada Baja:
             double importeTotalBaja = ((importeAlojamiento * Double.valueOf(jTCantDias.getText())) * (Integer) jSCantPersonas.getValue() + (importePasaje * (Integer) jSCantPersonas.getValue()));
@@ -521,9 +501,80 @@ public class VistaPaquetes extends javax.swing.JInternalFrame {
             jTImporteTotal.setText(importeTotalBaja + "");
         }
 
+        //muestra el cuadro de Dialogo de la Confirmación del Paquete
+        JFrame frame = new JFrame("Confirmar Creación de Paquete");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        //primero pasamos las fechas al formato que queremos usar:
+        String diaInicio = Integer.toString(jDInicio.getCalendar().get(Calendar.DAY_OF_MONTH));
+        String mesInicio = Integer.toString(jDInicio.getCalendar().get(Calendar.MONTH)+1);
+        String añoInicio = Integer.toString(jDInicio.getCalendar().get(Calendar.YEAR));
+        String fechaInicio = diaInicio+"/"+mesInicio+"/"+añoInicio;
+        String diaSalida = Integer.toString(jDSalida.getCalendar().get(Calendar.DAY_OF_MONTH));
+        String mesSalida = Integer.toString(jDSalida.getCalendar().get(Calendar.MONTH)+1);
+        String añoSalida = Integer.toString(jDSalida.getCalendar().get(Calendar.YEAR));
+        String fechaSalida = diaSalida+"/"+mesSalida+"/"+añoSalida;
+        
+        
+        int respuesta = JOptionPane.showConfirmDialog(frame, "El Importe Total del Pasaje es $: "+jTImporteTotal.getText()+
+                "\nOrigen: "+jTNombreOrigen.getText()+
+                "\nDestino: "+jtNombreDestino.getText()+
+                "\nCantidad de Personas: "+jSCantPersonas.getValue()+
+                "\nCantidad de Días: "+jTCantDias.getText()+
+                "\nTemporada: "+jTTemporada.getText()+
+                "\nTransporte: "+modeloPasaje.getValueAt(jTPasaje.getSelectedRow(), 1)+
+                "\nAlojamiento: "+modeloAlojamiento.getValueAt(jTAlojamiento.getSelectedRow(),1)+
+                "\nFecha Salida: "+fechaInicio+
+                "\nFecha Regreso: "+fechaSalida, "Confirmar la Creación del Paquete Turístico", JOptionPane.YES_NO_OPTION);
 
+        if (respuesta == JOptionPane.YES_OPTION) {
+            // Hizo click en cofirmar asi que se va a guardar el Paquete
+            
+            Ciudad ciudadOrigen = new Ciudad();
+            Ciudad ciudadDestino = new Ciudad();
+            CiudadData city = new CiudadData();
+            Pasaje pasajeEncontrado = new Pasaje();
+            PasajeData pass = new PasajeData();
+            Alojamiento alojamientoEncontrado = new Alojamiento();
+            AlojamientoData aloj = new AlojamientoData();
+            Paquete nuevoPaquete = new Paquete();
+            PaqueteData pack = new PaqueteData();
+
+            //busca la ciudad de Origen y la de Destino y las asigna
+            ciudadOrigen = city.buscarCiudad(jTNombreOrigen.getText());
+            ciudadDestino = city.buscarCiudad(jtNombreDestino.getText());
+            //busca el Alojamiento y lo asigna
+            alojamientoEncontrado = aloj.buscarAlojamiento((Integer) modeloAlojamiento.getValueAt(jTAlojamiento.getSelectedRow(), 0));
+            //busca el Pasaje y lo asigna
+            pasajeEncontrado = pass.buscarPasaje((Integer) modeloPasaje.getValueAt(jTPasaje.getSelectedRow(), 0));
+
+            nuevoPaquete.setOrigen(ciudadOrigen);
+            nuevoPaquete.setDestino(ciudadDestino);
+            nuevoPaquete.setAlojamiento(alojamientoEncontrado);
+            nuevoPaquete.setPasaje(pasajeEncontrado);
+
+            //manejo de la fecha para agregar al paquete
+            LocalDate fechaSalidas = jDInicio.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate fechaLlegada = jDInicio.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            dti = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+            nuevoPaquete.setFechaSalida(fechaSalidas);
+            nuevoPaquete.setFechaLLegada(fechaLlegada);
+
+            //llama al método para guardar el paquete
+            pack.guardarPaquete(nuevoPaquete);
+
+            borrarContenidoFormulario();
+        }else {
+            //Hizo click en no así que no se va a guardar el paquete y vuelve para ver si quiere modificarlo
+            return;
+        }
+
+        frame.pack();
+        frame.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         borrarContenidoFormulario();
@@ -531,7 +582,6 @@ public class VistaPaquetes extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBConfirmar;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -539,6 +589,7 @@ public class VistaPaquetes extends javax.swing.JInternalFrame {
     private com.toedter.calendar.JDateChooser jDInicio;
     private com.toedter.calendar.JDateChooser jDSalida;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

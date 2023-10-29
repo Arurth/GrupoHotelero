@@ -4,6 +4,9 @@
  */
 package turismogrupo77.entidades;
 
+import java.sql.Date;
+import java.time.LocalDate;
+
 /**
  *
  * @author Matias
@@ -14,24 +17,49 @@ public class Paquete {
     private Ciudad destino;
     private Alojamiento alojamiento;
     private Pasaje pasaje;
+    private LocalDate fechaSalida;
+    private LocalDate fechaLLegada;
 
     public Paquete() {
     }
 
-    public Paquete(int idPaquete, Ciudad origen, Ciudad destino, Alojamiento alojamiento, Pasaje pasaje) {
+    public Paquete(int idPaquete, Ciudad origen, Ciudad destino, Alojamiento alojamiento, Pasaje pasaje, LocalDate fechaSalida, LocalDate fechaLLegada) {
         this.idPaquete = idPaquete;
         this.origen = origen;
         this.destino = destino;
         this.alojamiento = alojamiento;
         this.pasaje = pasaje;
+        this.fechaSalida = fechaSalida;
+        this.fechaLLegada = fechaLLegada;
     }
 
-    public Paquete(Ciudad origen, Ciudad destino, Alojamiento alojamiento, Pasaje pasaje) {
+    public Paquete(Ciudad origen, Ciudad destino, Alojamiento alojamiento, Pasaje pasaje, LocalDate fechaSalida, LocalDate fechaLLegada) {
         this.origen = origen;
         this.destino = destino;
         this.alojamiento = alojamiento;
         this.pasaje = pasaje;
+        this.fechaSalida = fechaSalida;
+        this.fechaLLegada = fechaLLegada;
     }
+
+    public LocalDate getFechaSalida() {
+        return fechaSalida;
+    }
+
+    public void setFechaSalida(LocalDate fechaSalida) {
+        this.fechaSalida = fechaSalida;
+    }
+
+    public LocalDate getFechaLLegada() {
+        return fechaLLegada;
+    }
+
+    public void setFechaLLegada(LocalDate fechaLLegada) {
+        this.fechaLLegada = fechaLLegada;
+    }
+
+
+    
 
     public int getIdPaquete() {
         return idPaquete;
