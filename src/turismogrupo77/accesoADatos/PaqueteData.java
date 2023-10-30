@@ -323,5 +323,33 @@ public class PaqueteData {
         }
         return paqueteEncontrado;
     }
+    
+    public void modificarPaquete(Paquete paquete) {
+        String sql = "UPDATE paquete SET origen = ?, Destino = ?, idAlojamiento = ?,idPasaje = ?,"
+                + "fechaSalida = ?, fechaLlegada = ?, estado = ?, cantPersonas = ?, Importe = ?,"
+                + "Cliente = ? WHERE idPaquete = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, paquete.getOrigen().getNombre());
+            ps.setString(2, paquete.getDestino().getNombre());
+            ps.setInt(3, paquete.getAlojamiento().getIdAlojamiento());
+            ps.setInt(4, paquete.getPasaje().getIdPasaje());
+            ps.setDate(5, Date.valueOf(paquete.getFechaSalida()));
+            ps.setDate(6, Date.valueOf(paquete.getFechaLLegada()));
+            ps.setBoolean(7, paquete.isEstado());
+            ps.setInt(8, paquete.getCantPersonas());
+            ps.setDouble(9,paquete.getImporte());
+            ps.setString(10, paquete.getCliente());
+            ps.setInt(11, paquete.getIdPaquete());
+            ps.executeUpdate();
+            
+            JOptionPane.showMessageDialog(null, "Se ha Modificado el Paquete " + paquete.getIdPaquete());
+            
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Paquete" + ex.getMessage());
+        }
+    }
 
 }

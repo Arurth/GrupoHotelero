@@ -5,6 +5,7 @@
 package turismogrupo77.vistas;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -68,9 +69,9 @@ public class ListadoPaquetes extends javax.swing.JInternalFrame {
         jDInicio.setEnabled(false);
 
         jCAlojamiento.removeAllItems();
-        jCAlojamiento.setEnabled(false);
+        jCAlojamiento.setEnabled(true);
         jCTransporte.removeAllItems();
-        jCTransporte.setEnabled(false);
+        jCTransporte.setEnabled(true);
 
         jCEstado.setEnabled(false);
         jCEstado.setSelected(false);
@@ -122,6 +123,12 @@ public class ListadoPaquetes extends javax.swing.JInternalFrame {
         jTextField1 = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jTCliente = new javax.swing.JTextField();
+        jTTemporada = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        jSpinner1 = new javax.swing.JSpinner();
+        jSCantPersonas = new javax.swing.JSpinner();
+        jLabel12 = new javax.swing.JLabel();
+        jTCantDias = new javax.swing.JTextField();
 
         jLabel1.setText("LISTADO DE PAQUETES");
 
@@ -169,7 +176,11 @@ public class ListadoPaquetes extends javax.swing.JInternalFrame {
         jCEstado.setEnabled(false);
 
         jBModificar.setText("Modificar");
-        jBModificar.setEnabled(false);
+        jBModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBModificarActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Salir");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -220,6 +231,12 @@ public class ListadoPaquetes extends javax.swing.JInternalFrame {
 
         jLabel10.setText("Nombre Cliente");
 
+        jLabel11.setText("Temporada");
+
+        jSCantPersonas.setModel(new javax.swing.SpinnerNumberModel(1, 1, 20, 1));
+
+        jLabel12.setText("Personas");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -244,32 +261,43 @@ public class ListadoPaquetes extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jDInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jDSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(35, 35, 35)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel5)
-                                            .addComponent(jLabel4)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(148, 148, 148)
-                                        .addComponent(jBModificar)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(37, 37, 37)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jCAlojamiento, 0, 139, Short.MAX_VALUE)
-                                            .addComponent(jCTransporte, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(8, 8, 8)
-                                        .addComponent(jBCancelar)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                                        .addComponent(jButton2)))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jDInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jDSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(35, 35, 35)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel4)))
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(148, 148, 148)
+                                .addComponent(jBModificar))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jTImporte, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel11)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTTemporada, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(15, 15, 15)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(94, 94, 94)
+                                .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(38, 38, 38)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jCAlojamiento, 0, 139, Short.MAX_VALUE)
+                                        .addComponent(jCTransporte, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jBCancelar)
+                                        .addGap(35, 35, 35)
+                                        .addComponent(jButton2))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jTCantDias, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel12)
+                                .addGap(18, 18, 18)
+                                .addComponent(jSCantPersonas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -316,11 +344,16 @@ public class ListadoPaquetes extends javax.swing.JInternalFrame {
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jTImporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(11, 11, 11)
+                    .addComponent(jTImporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTTemporada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11)
+                    .addComponent(jSCantPersonas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12)
+                    .addComponent(jTCantDias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -338,14 +371,16 @@ public class ListadoPaquetes extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jCEstado)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jBModificar)
                             .addComponent(jButton2)
                             .addComponent(jBCancelar))
-                        .addGap(51, 51, 51))))
+                        .addGap(51, 51, 51)))
+                .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32))
         );
 
         pack();
@@ -481,6 +516,7 @@ public class ListadoPaquetes extends javax.swing.JInternalFrame {
         jDInicio.setEnabled(true);
         jDSalida.setEnabled(true);
         jCEstado.setEnabled(true);
+        jBModificar.setEnabled(true);
 
         Paquete paqueteSeleccionado = new Paquete();
         PaqueteData pack = new PaqueteData();
@@ -505,7 +541,6 @@ public class ListadoPaquetes extends javax.swing.JInternalFrame {
         //completa el campo estado con el elemento seleccionado
         jCEstado.setSelected(paqueteSeleccionado.isEstado());
 
-        
         //completa el Combo box con los Alojamientos Disponibles
         jCAlojamiento.removeAllItems();
         alojamientoEncontrado = aloj.buscarAlojamiento(paqueteSeleccionado.getAlojamiento().getIdAlojamiento());
@@ -514,14 +549,14 @@ public class ListadoPaquetes extends javax.swing.JInternalFrame {
             jCAlojamiento.addItem(item + "");
         }
         jCAlojamiento.setSelectedItem(alojamientoEncontrado + "");
-        
+
         //completa el Combo box con los Tipos de Transporte Disponibles
         jCTransporte.removeAllItems();
         List<Pasaje> pasajes = pass.listarPasajesOrigenDestino(paqueteSeleccionado.getOrigen().getIdCiudad(), paqueteSeleccionado.getDestino().getIdCiudad());
         for (Pasaje item : pasajes) {
             jCTransporte.addItem(item + "");
         }
-        jCTransporte.setSelectedItem(paqueteSeleccionado.getPasaje()+"");
+        jCTransporte.setSelectedItem(paqueteSeleccionado.getPasaje() + "");
 
     }//GEN-LAST:event_jTPaqueteMouseClicked
 
@@ -529,6 +564,169 @@ public class ListadoPaquetes extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         borrarContenidoFormulario();
     }//GEN-LAST:event_jBCancelarActionPerformed
+
+    private void jBModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBModificarActionPerformed
+
+        //creo todo lo necesario para grabar el paquete y obtengo los datos del paquete seleccionado
+        Paquete paqueteSeleccionado = new Paquete();
+        PaqueteData pack = new PaqueteData();
+        Ciudad ciudadOrigen = new Ciudad();
+        Ciudad ciudadDestino = new Ciudad();
+        CiudadData city = new CiudadData();
+        Pasaje pasajeSeleccionado = new Pasaje();
+        PasajeData pass = new PasajeData();
+        Alojamiento alojamientoEncontrado = new Alojamiento();
+        Alojamiento alojamientoSeleccionado = new Alojamiento();
+        AlojamientoData aloj = new AlojamientoData();
+        int idPaquete = (Integer) modelo.getValueAt(jTPaquete.getSelectedRow(), 0);
+        paqueteSeleccionado = pack.buscarPaquete(idPaquete);
+
+        //Listo todos los Alojamientos para averiguar cual es el nuevo seleccionado:
+        alojamientoEncontrado = aloj.buscarAlojamiento(paqueteSeleccionado.getAlojamiento().getIdAlojamiento());
+        List<Alojamiento> alojamientos = aloj.listarAlojamientosIDciudad(alojamientoEncontrado.getCiudadDest().getIdCiudad());
+        for (Alojamiento item : alojamientos) {
+            String item2 = item + "";
+            if (jCAlojamiento.getSelectedItem().equals(item2)) {
+                alojamientoSeleccionado = item;
+            }
+        }
+
+        // Listo todos los pasajes para averiguar cual es el nuevo seleccionado:
+        List<Pasaje> pasajes = pass.listarPasajesOrigenDestino(paqueteSeleccionado.getOrigen().getIdCiudad(), paqueteSeleccionado.getDestino().getIdCiudad());
+        for (Pasaje item : pasajes) {
+            String item2 = item + "";
+            if (jCTransporte.getSelectedItem().equals(item2)) {
+                pasajeSeleccionado = item;
+            }
+        }
+        
+        //Comienza El calculo de los nuevos precios
+        double importeAlojamiento;
+        double importePasaje;
+
+        if (jDInicio.getDate() == null || jDSalida.getDate() == null) {
+            JOptionPane.showMessageDialog(null, "Debe Completar Ambos Campos de Fecha Inicio/Salida");
+            return;
+        }
+        // Calcula el Importe Total del Paquete
+
+        //calcular si es temporada alta, media, o baja
+        LocalDate fechaI = jDInicio.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        DateTimeFormatter dti = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        //jLfecha.setText("Fecha: "+fechaN.format(dtf));
+        LocalDate fechaF = jDSalida.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        if (fechaI.isAfter(fechaF)) {
+            JOptionPane.showMessageDialog(null, "La Fecha de Inicio no puede ser posterior a la de Salida :-)");
+            return;
+        } else {
+            //calcula los dias de alojamiento
+            if (fechaI.getMonthValue() == 1 || fechaI.getMonthValue() == 7) {
+                jTTemporada.setText("Alta");
+            } else if (fechaI.getMonthValue() == 2 || fechaI.getMonthValue() == 6) {
+                jTTemporada.setText("Media");
+            } else {
+                jTTemporada.setText("Baja");
+            }
+
+            long totaldias = ChronoUnit.DAYS.between(fechaI, fechaF);
+            jTCantDias.setText(totaldias + "");
+        }
+
+        
+            importeAlojamiento = (Double) alojamientoSeleccionado.getImporteDiario();
+            importePasaje = (Double) pasajeSeleccionado.getImporte();
+       
+            //calculo usando los días y cantidad de Personas en Temporada Baja:
+            double importeTotalBaja = ((importeAlojamiento * Double.valueOf(jTCantDias.getText())) * (Integer) jSCantPersonas.getValue() + (importePasaje * (Integer) jSCantPersonas.getValue()));
+            //se Agrega o no el porcentaje que correspondería si es Temporada Alta:
+            double importeTotalAlta = importeTotalBaja * 1.3;
+            //se Agrega o no el porcentaje que correspondería si es Temporada Media:
+            double importeTotalMedia = importeTotalBaja * 1.15;
+
+        //Muestro los precios nuevos
+        if (jTTemporada.getText().equals("Alta")) {
+            jTImporte.setText(importeTotalAlta + "");
+        } else if (jTTemporada.getText().equals("Media")) {
+            jTImporte.setText(importeTotalMedia + "");
+        } else {
+            jTImporte.setText(importeTotalBaja + "");
+        }
+        
+        //muestra el cuadro de Dialogo de la Confirmación del Paquete
+        JFrame frame = new JFrame("Confirmar Creación de Paquete");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        //primero pasamos las fechas al formato que queremos usar:
+        String diaInicio = Integer.toString(jDInicio.getCalendar().get(Calendar.DAY_OF_MONTH));
+        String mesInicio = Integer.toString(jDInicio.getCalendar().get(Calendar.MONTH)+1);
+        String añoInicio = Integer.toString(jDInicio.getCalendar().get(Calendar.YEAR));
+        String fechaInicio = diaInicio+"/"+mesInicio+"/"+añoInicio;
+        String diaSalida = Integer.toString(jDSalida.getCalendar().get(Calendar.DAY_OF_MONTH));
+        String mesSalida = Integer.toString(jDSalida.getCalendar().get(Calendar.MONTH)+1);
+        String añoSalida = Integer.toString(jDSalida.getCalendar().get(Calendar.YEAR));
+        String fechaSalida = diaSalida+"/"+mesSalida+"/"+añoSalida;
+        
+        
+        int respuesta = JOptionPane.showConfirmDialog(frame, "El Nuevo Importe Total del Pasaje es $: "+jTImporte.getText()+
+                "\nCantidad de Personas: "+jSCantPersonas.getValue()+
+                "\nCantidad de Días: "+jTCantDias.getText()+
+                "\nTemporada: "+jTTemporada.getText()+
+                "\nTransporte: "+pasajeSeleccionado.getTipoTransporte()+
+                "\nAlojamiento: "+alojamientoSeleccionado.getNombre()+
+                "\nFecha Salida: "+fechaInicio+
+                "\nFecha Regreso: "+fechaSalida, "Confirmar la Modificacion del Paquete Turístico", JOptionPane.YES_NO_OPTION);
+
+        if (respuesta == JOptionPane.YES_OPTION) {
+            // Hizo click en cofirmar asi que se va a Modificar el Paquete
+            
+            //Ciudad ciudadOrigen = new Ciudad();
+            //Ciudad ciudadDestino = new Ciudad();
+           // CiudadData city = new CiudadData();
+            Pasaje pasajeEncontrado = new Pasaje();
+            //PasajeData pass = new PasajeData();
+            //Alojamiento alojamientoEncontrado = new Alojamiento();
+            //AlojamientoData aloj = new AlojamientoData();
+            Paquete nuevoPaquete = new Paquete();
+            //PaqueteData pack = new PaqueteData();
+
+            //busca la ciudad de Origen y la de Destino y las asigna
+            //ciudadOrigen = city.buscarCiudad(jTNombreOrigen.getText());
+           // ciudadDestino = city.buscarCiudad(jtNombreDestino.getText());
+           
+            //Asigna el Alojamiento nuevo 
+            paqueteSeleccionado.setAlojamiento(alojamientoSeleccionado);
+            //Asigna el Pasaje nuevo
+            paqueteSeleccionado.setPasaje(pasajeSeleccionado);
+
+            
+            
+            paqueteSeleccionado.setEstado(jCEstado.isSelected());
+            
+            
+            paqueteSeleccionado.setCantPersonas((Integer)jSCantPersonas.getValue());
+            paqueteSeleccionado.setImporte(Double.parseDouble(jTImporte.getText()));
+
+            //manejo de la fecha para agregar al paquete
+            LocalDate fechaSalidas = jDSalida.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate fechaLlegada = jDInicio.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            dti = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+            paqueteSeleccionado.setFechaSalida(fechaSalidas);
+            paqueteSeleccionado.setFechaLLegada(fechaLlegada);
+
+            //llama al método para modificar el paquete
+            pack.modificarPaquete(paqueteSeleccionado);
+            borrarContenidoFormulario();
+        }else {
+            //Hizo click en no así que no se va a modificar el paquete y vuelve para ver si quiere modificarlo
+            return;
+        }
+
+        frame.pack();
+        frame.setVisible(true);
+    }//GEN-LAST:event_jBModificarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -544,6 +742,8 @@ public class ListadoPaquetes extends javax.swing.JInternalFrame {
     private com.toedter.calendar.JDateChooser jDSalida;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -552,11 +752,15 @@ public class ListadoPaquetes extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JSpinner jSCantPersonas;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSpinner jSpinner1;
+    private javax.swing.JTextField jTCantDias;
     private javax.swing.JTextField jTCliente;
     private javax.swing.JTextField jTImporte;
     private javax.swing.JTextField jTNombreCiudad;
     private javax.swing.JTable jTPaquete;
+    private javax.swing.JTextField jTTemporada;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
