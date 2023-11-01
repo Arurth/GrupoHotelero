@@ -5,8 +5,10 @@
         <group>
             <file>file:/D:/Decker%20Soluciones/Documents/GitHub/TurismoGrupo77/src/turismogrupo77/accesoADatos/CiudadData.java</file>
             <file>file:/D:/Decker%20Soluciones/Documents/GitHub/TurismoGrupo77/src/turismogrupo77/accesoADatos/PaqueteData.java</file>
+            <file>file:/D:/Decker%20Soluciones/Documents/GitHub/TurismoGrupo77/src/turismogrupo77/vistas/VistaPaquetes.java</file>
             <file>file:/D:/Decker%20Soluciones/Documents/GitHub/TurismoGrupo77/src/turismogrupo77/accesoADatos/AlojamientoData.java</file>
-            <file>file:/D:/Decker%20Soluciones/Documents/GitHub/TurismoGrupo77/src/turismogrupo77/vistas/FormularioAlojamiento.java</file>
+            <file>file:/D:/Decker%20Soluciones/Documents/GitHub/TurismoGrupo77/src/turismogrupo77/vistas/ListadoPaquetes.java</file>
+            <file>file:/D:/Decker%20Soluciones/Documents/GitHub/TurismoGrupo77/src/turismogrupo77/entidades/Paquete.java</file>
             <file>file:/D:/Decker%20Soluciones/Documents/GitHub/TurismoGrupo77/src/turismogrupo77/accesoADatos/PasajeData.java</file>
         </group>
     </open-files>

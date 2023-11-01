@@ -23,11 +23,13 @@ public class Paquete {
     private int cantPersonas;
     private double importe;
     private String cliente;
+    private String temporada;
+    private int cantDias;
 
     public Paquete() {
     }
 
-    public Paquete(int idPaquete, Ciudad origen, Ciudad destino, Alojamiento alojamiento, Pasaje pasaje, LocalDate fechaSalida, LocalDate fechaLLegada, boolean estado, int cantPersonas, double importe, String cliente) {
+    public Paquete(int idPaquete, Ciudad origen, Ciudad destino, Alojamiento alojamiento, Pasaje pasaje, LocalDate fechaSalida, LocalDate fechaLLegada, boolean estado, int cantPersonas, double importe, String cliente, String temporada, int cantDias) {
         this.idPaquete = idPaquete;
         this.origen = origen;
         this.destino = destino;
@@ -39,9 +41,11 @@ public class Paquete {
         this.cantPersonas = cantPersonas;
         this.importe = importe;
         this.cliente = cliente;
+        this.temporada = temporada;
+        this.cantDias = cantDias;
     }
 
-    public Paquete(Ciudad origen, Ciudad destino, Alojamiento alojamiento, Pasaje pasaje, LocalDate fechaSalida, LocalDate fechaLLegada, boolean estado, int cantPersonas, double importe, String cliente) {
+    public Paquete(Ciudad origen, Ciudad destino, Alojamiento alojamiento, Pasaje pasaje, LocalDate fechaSalida, LocalDate fechaLLegada, boolean estado, int cantPersonas, double importe, String cliente, int cantDias) {
         this.origen = origen;
         this.destino = destino;
         this.alojamiento = alojamiento;
@@ -52,10 +56,28 @@ public class Paquete {
         this.cantPersonas = cantPersonas;
         this.importe = importe;
         this.cliente = cliente;
+        this.temporada = temporada;
+        this.cantDias = cantDias;
+    }
+
+    public int getCantDias() {
+        return cantDias;
+    }
+
+    public void setCantDias(int cantDias) {
+        this.cantDias = cantDias;
     }
 
     public int getCantPersonas() {
         return cantPersonas;
+    }
+
+    public String getTemporada() {
+        return temporada;
+    }
+
+    public void setTemporada(String temporada) {
+        this.temporada = temporada;
     }
 
     public void setCantPersonas(int cantPersonas) {

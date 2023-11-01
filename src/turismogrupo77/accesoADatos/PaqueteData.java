@@ -32,19 +32,21 @@ public class PaqueteData {
     }
 
     public void guardarPaquete(Paquete paquete) {
-        String sql = " INSERT INTO Paquete (origen, destino, idAlojamiento, idPasaje, fechaSalida, fechaLlegada, estado, cantPersonas, Importe, Cliente)" + "VALUES(?,?,?,?,?,?,?,?,?,?)";
+        String sql = " INSERT INTO Paquete (origen, destino, idAlojamiento, idPasaje, fechaSalida, fechaLlegada, estado, cantPersonas, Importe, Cliente, temporada, cantDias)" + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, paquete.getOrigen().getNombre());
             ps.setString(2, paquete.getDestino().getNombre());
             ps.setInt(3, paquete.getAlojamiento().getIdAlojamiento());
             ps.setInt(4, paquete.getPasaje().getIdPasaje());
-            ps.setDate(5, Date.valueOf(paquete.getFechaSalida()));
-            ps.setDate(6, Date.valueOf(paquete.getFechaLLegada()));
+            ps.setDate(6, Date.valueOf(paquete.getFechaSalida()));
+            ps.setDate(5, Date.valueOf(paquete.getFechaLLegada()));
             ps.setBoolean(7, paquete.isEstado());
             ps.setInt(8, paquete.getCantPersonas());
             ps.setDouble(9,paquete.getImporte());
             ps.setString(10, paquete.getCliente());
+            ps.setString(11, paquete.getTemporada());
+            ps.setInt(12, paquete.getCantDias());
             ps.executeUpdate();
 
             ResultSet rs = ps.getGeneratedKeys();
@@ -278,7 +280,7 @@ public class PaqueteData {
     public Paquete buscarPaquete(int idPaquete) {
 
         //se fija primero si hay alguna ciudad con ese nombre
-        String sql = "SELECT idPaquete, origen, destino, idAlojamiento, idPasaje, fechaSalida, fechaLlegada, estado, cantPersonas, Importe, Cliente FROM Paquete WHERE idPaquete=?";
+        String sql = "SELECT idPaquete, origen, destino, idAlojamiento, idPasaje, fechaSalida, fechaLlegada, estado, cantPersonas, Importe, Cliente, temporada, cantDias FROM Paquete WHERE idPaquete=?";
         Paquete paqueteEncontrado = null;
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -316,6 +318,8 @@ public class PaqueteData {
                 paqueteEncontrado.setCantPersonas(rs.getInt("cantPersonas"));
                 paqueteEncontrado.setImporte(rs.getDouble("Importe"));
                 paqueteEncontrado.setCliente(rs.getString("Cliente"));
+                paqueteEncontrado.setTemporada(rs.getString("temporada"));
+                paqueteEncontrado.setCantDias(rs.getInt("cantDias"));
             }
             ps.close();
         } catch (SQLException ex) {
@@ -327,7 +331,7 @@ public class PaqueteData {
     public void modificarPaquete(Paquete paquete) {
         String sql = "UPDATE paquete SET origen = ?, Destino = ?, idAlojamiento = ?,idPasaje = ?,"
                 + "fechaSalida = ?, fechaLlegada = ?, estado = ?, cantPersonas = ?, Importe = ?,"
-                + "Cliente = ? WHERE idPaquete = ?";
+                + "Cliente = ?, temporada = ?, cantDias =? WHERE idPaquete = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, paquete.getOrigen().getNombre());
@@ -340,7 +344,9 @@ public class PaqueteData {
             ps.setInt(8, paquete.getCantPersonas());
             ps.setDouble(9,paquete.getImporte());
             ps.setString(10, paquete.getCliente());
-            ps.setInt(11, paquete.getIdPaquete());
+            ps.setInt(13, paquete.getIdPaquete());
+            ps.setString(11, paquete.getTemporada());
+            ps.setInt(12, paquete.getCantDias());
             ps.executeUpdate();
             
             JOptionPane.showMessageDialog(null, "Se ha Modificado el Paquete " + paquete.getIdPaquete());

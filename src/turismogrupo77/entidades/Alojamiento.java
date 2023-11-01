@@ -144,7 +144,7 @@ public class Alojamiento {
 
     @Override
     public String toString() {
-        return idAlojamiento + nombre + tipoAlojamiento + " IMPORTE: " + importeDiario;
+        return idAlojamiento + " " + nombre + " " + tipoAlojamiento + " IMPORTE: " + importeDiario;
     }
 
     

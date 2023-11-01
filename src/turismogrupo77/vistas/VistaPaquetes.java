@@ -373,7 +373,6 @@ public class VistaPaquetes extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
                             .addComponent(jSCantPersonas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -394,10 +393,11 @@ public class VistaPaquetes extends javax.swing.JInternalFrame {
                                 .addComponent(jButton3))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(43, 43, 43)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel11)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTCantDias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2))))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel11)
+                                .addComponent(jButton2)))))
                 .addContainerGap(163, Short.MAX_VALUE))
         );
 
@@ -571,6 +571,8 @@ public class VistaPaquetes extends javax.swing.JInternalFrame {
             nuevoPaquete.setCliente(jTCliente.getText());
             nuevoPaquete.setCantPersonas((Integer)jSCantPersonas.getValue());
             nuevoPaquete.setImporte(Double.parseDouble(jTImporteTotal.getText()));
+            nuevoPaquete.setTemporada(jTTemporada.getText());
+            nuevoPaquete.setCantDias(Integer.valueOf(jTCantDias.getText()));
 
             //manejo de la fecha para agregar al paquete
             LocalDate fechaSalidas = jDInicio.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();

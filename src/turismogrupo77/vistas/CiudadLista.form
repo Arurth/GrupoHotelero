@@ -120,32 +120,33 @@
     <Component class="javax.swing.JComboBox" name="jCProvincia">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="25">
+          <StringArray count="26">
             <StringItem index="0" value="Todas"/>
-            <StringItem index="1" value="Buenos Aires"/>
-            <StringItem index="2" value="CABA"/>
-            <StringItem index="3" value="Catamarca"/>
-            <StringItem index="4" value="Chaco"/>
-            <StringItem index="5" value="Chubut"/>
-            <StringItem index="6" value="Cordoba"/>
-            <StringItem index="7" value="Corrientes"/>
-            <StringItem index="8" value="Entre Rios"/>
-            <StringItem index="9" value="Formosa"/>
-            <StringItem index="10" value="Jujuy"/>
-            <StringItem index="11" value="La Pampa"/>
-            <StringItem index="12" value="La Rioja"/>
-            <StringItem index="13" value="Mendoza"/>
-            <StringItem index="14" value="Misiones"/>
-            <StringItem index="15" value="Neuquen"/>
-            <StringItem index="16" value="Rio Negro"/>
-            <StringItem index="17" value="Salta"/>
-            <StringItem index="18" value="San Juan"/>
-            <StringItem index="19" value="San Luis"/>
-            <StringItem index="20" value="Santa Cruz"/>
-            <StringItem index="21" value="Santa Fe"/>
-            <StringItem index="22" value="Santiago del Estero"/>
-            <StringItem index="23" value="Tierra del Fuego y AIAS"/>
-            <StringItem index="24" value="Tucuman"/>
+            <StringItem index="1" value="Internacional"/>
+            <StringItem index="2" value="Buenos Aires"/>
+            <StringItem index="3" value="CABA"/>
+            <StringItem index="4" value="Catamarca"/>
+            <StringItem index="5" value="Chaco"/>
+            <StringItem index="6" value="Chubut"/>
+            <StringItem index="7" value="Cordoba"/>
+            <StringItem index="8" value="Corrientes"/>
+            <StringItem index="9" value="Entre Rios"/>
+            <StringItem index="10" value="Formosa"/>
+            <StringItem index="11" value="Jujuy"/>
+            <StringItem index="12" value="La Pampa"/>
+            <StringItem index="13" value="La Rioja"/>
+            <StringItem index="14" value="Mendoza"/>
+            <StringItem index="15" value="Misiones"/>
+            <StringItem index="16" value="Neuquen"/>
+            <StringItem index="17" value="Rio Negro"/>
+            <StringItem index="18" value="Salta"/>
+            <StringItem index="19" value="San Juan"/>
+            <StringItem index="20" value="San Luis"/>
+            <StringItem index="21" value="Santa Cruz"/>
+            <StringItem index="22" value="Santa Fe"/>
+            <StringItem index="23" value="Santiago del Estero"/>
+            <StringItem index="24" value="Tierra del Fuego y AIAS"/>
+            <StringItem index="25" value="Tucuman"/>
           </StringArray>
         </Property>
       </Properties>

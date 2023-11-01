@@ -90,7 +90,7 @@ public class CiudadLista extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(jTCiudades);
 
-        jCProvincia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todas", "Buenos Aires", "CABA", "Catamarca", "Chaco", "Chubut", "Cordoba", "Corrientes", "Entre Rios", "Formosa", "Jujuy", "La Pampa", "La Rioja", "Mendoza", "Misiones", "Neuquen", "Rio Negro", "Salta", "San Juan", "San Luis", "Santa Cruz", "Santa Fe", "Santiago del Estero", "Tierra del Fuego y AIAS", "Tucuman" }));
+        jCProvincia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todas", "Internacional", "Buenos Aires", "CABA", "Catamarca", "Chaco", "Chubut", "Cordoba", "Corrientes", "Entre Rios", "Formosa", "Jujuy", "La Pampa", "La Rioja", "Mendoza", "Misiones", "Neuquen", "Rio Negro", "Salta", "San Juan", "San Luis", "Santa Cruz", "Santa Fe", "Santiago del Estero", "Tierra del Fuego y AIAS", "Tucuman" }));
 
         jLabel2.setText("Provincia");
 
