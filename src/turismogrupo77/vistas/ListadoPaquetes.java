@@ -713,16 +713,20 @@ public class ListadoPaquetes extends javax.swing.JInternalFrame {
         String mesSalida = Integer.toString(jDSalida.getCalendar().get(Calendar.MONTH)+1);
         String añoSalida = Integer.toString(jDSalida.getCalendar().get(Calendar.YEAR));
         String fechaSalida = diaSalida+"/"+mesSalida+"/"+añoSalida;
+        String disponibilidad = "Disponible";
+        if(!jCEstado.isSelected()){
+            disponibilidad = "No Disponible a partir de Ahora";
+        }
         
-        
-        int respuesta = JOptionPane.showConfirmDialog(frame, "El Nuevo Importe Total del Pasaje es $: "+jTImporte.getText()+
+        int respuesta = JOptionPane.showConfirmDialog(frame, "El Nuevo Importe Total del Pasaje es $: "+jTImporte.getText()+" el anterior era $ "+paqueteSeleccionado.getImporte()+
                 "\nCantidad de Personas: "+jSCantPersonas.getValue()+
                 "\nCantidad de Días: "+jTCantDias.getText()+
                 "\nTemporada: "+jTTemporada.getText()+
                 "\nTransporte: "+pasajeSeleccionado.getTipoTransporte()+
                 "\nAlojamiento: "+alojamientoSeleccionado.getNombre()+
                 "\nFecha Salida: "+fechaInicio+
-                "\nFecha Regreso: "+fechaSalida, "Confirmar la Modificacion del Paquete Turístico", JOptionPane.YES_NO_OPTION);
+                "\nFecha Regreso: "+fechaSalida+
+                "\n"+disponibilidad, "Confirmar la Modificacion y/o borrado del Paquete Turístico", JOptionPane.YES_NO_OPTION);
 
         if (respuesta == JOptionPane.YES_OPTION) {
             // Hizo click en cofirmar asi que se va a Modificar el Paquete

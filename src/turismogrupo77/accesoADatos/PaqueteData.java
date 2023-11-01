@@ -349,7 +349,12 @@ public class PaqueteData {
             ps.setInt(12, paquete.getCantDias());
             ps.executeUpdate();
             
+            //determina si es un borrado logico o una modificacion
+            if(paquete.isEstado()==false){
+                JOptionPane.showMessageDialog(null, "Se ha borrado el Paquete");
+            } else {
             JOptionPane.showMessageDialog(null, "Se ha Modificado el Paquete " + paquete.getIdPaquete());
+            }
             
             ps.close();
 
