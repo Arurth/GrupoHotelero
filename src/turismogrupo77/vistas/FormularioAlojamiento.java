@@ -421,7 +421,7 @@ public class FormularioAlojamiento extends javax.swing.JInternalFrame {
         if (ciudadEncontrada != null) {
             AlojamientoData aloj = new AlojamientoData();
             Alojamiento newAloj = new Alojamiento(jTNombre.getText(), jCBoxTipoAlojamiento.getSelectedItem()+"", jCBoxServicios.getSelectedItem()+"",  jTDescripcionMenu.getText(), Double.valueOf(jTextImporteDiario.getText()), ciudadEncontrada, jREstado.isSelected());
-            JOptionPane.showMessageDialog(null, newAloj.getTipoAlojamiento());
+            //JOptionPane.showMessageDialog(null, newAloj.getTipoAlojamiento());
             aloj.guardarAlojamiento(newAloj);
             borrarContenidoFormulario();
         } else {
@@ -452,7 +452,7 @@ public class FormularioAlojamiento extends javax.swing.JInternalFrame {
         if (ciudadEncontrada != null) {
             AlojamientoData aloj = new AlojamientoData();
             Alojamiento newAloj = new Alojamiento((Integer)modelo.getValueAt(jTAlojamientos.getSelectedRow(), 0),jTNombre.getText(), jCBoxTipoAlojamiento.getSelectedItem()+"", jCBoxServicios.getSelectedItem()+"",  jTDescripcionMenu.getText(), Double.valueOf(jTextImporteDiario.getText()), ciudadEncontrada, jREstado.isSelected());
-            JOptionPane.showMessageDialog(null, newAloj.getTipoAlojamiento());
+            //JOptionPane.showMessageDialog(null, newAloj.getTipoAlojamiento());
             aloj.modificarAlojamiento(newAloj);
             JOptionPane.showMessageDialog(null, "Se han modificado Correctamente los Datos del Alojamiento");
             borrarContenidoFormulario();
@@ -526,7 +526,7 @@ public class FormularioAlojamiento extends javax.swing.JInternalFrame {
         AlojamientoData alojData = new AlojamientoData();
         
         if (jTAlojamientos.getSelectedRow() != -1) {
-            JOptionPane.showMessageDialog(null, modelo.getValueAt(jTAlojamientos.getSelectedRow(), 0));
+            //JOptionPane.showMessageDialog(null, modelo.getValueAt(jTAlojamientos.getSelectedRow(), 0));
             aloj = alojData.buscarAlojamiento((Integer)modelo.getValueAt(jTAlojamientos.getSelectedRow(), 0));
             jTNombre.setText(aloj.getNombre());
             jTNombre.setEnabled(true);

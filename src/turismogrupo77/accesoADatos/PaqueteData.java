@@ -289,7 +289,7 @@ public class PaqueteData {
                 Ciudad destino = new Ciudad();
                 CiudadData city = new CiudadData();
 
-                JOptionPane.showMessageDialog(null, "Se ha encontrado un Paquete con ese ID");
+               // JOptionPane.showMessageDialog(null, "Se ha encontrado un Paquete con ese ID");
                 paqueteEncontrado = new Paquete();
                 Alojamiento alojamiento = new Alojamiento();
                 Pasaje pasaje = new Pasaje();

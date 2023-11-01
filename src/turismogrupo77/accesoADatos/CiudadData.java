@@ -68,7 +68,7 @@ public class CiudadData {
             ps.setString(1, nombre);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                JOptionPane.showMessageDialog(null, "Se ha encontrado la ciudad con ese nombre");
+                //JOptionPane.showMessageDialog(null, "Se ha encontrado la ciudad con ese nombre");
                 ciudadEncontrada = new Ciudad();
                 ciudadEncontrada.setIdCiudad(rs.getInt("idCiudad"));
                 ciudadEncontrada.setNombre(rs.getString("nombre"));

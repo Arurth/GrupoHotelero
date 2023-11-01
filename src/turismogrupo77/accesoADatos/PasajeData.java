@@ -112,7 +112,7 @@ public class PasajeData {
             ps.setInt(2, idCiudad);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                JOptionPane.showMessageDialog(null, "Se ha encontrado pasajes con ese nombre de ciudad");
+                //JOptionPane.showMessageDialog(null, "Se ha encontrado pasajes con ese nombre de ciudad");
                 pasajeEncontrado = new Pasaje();
                 Ciudad ciudadOR = new Ciudad();
                 Ciudad ciudadDEST = new Ciudad();
@@ -223,7 +223,7 @@ public class PasajeData {
             ps.setInt(1, idPasaje);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                JOptionPane.showMessageDialog(null, "Se ha encontrado un pasaje con ese nombre");
+               // JOptionPane.showMessageDialog(null, "Se ha encontrado un pasaje con ese nombre");
                 pasajeEncontrado = new Pasaje();
                 Ciudad ciudad = new Ciudad();
                 pasajeEncontrado.setIdPasaje(rs.getInt("idPasaje"));

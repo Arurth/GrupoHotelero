@@ -82,7 +82,7 @@ public class AlojamientoData {
             ps.setInt(1, idAlojamiento);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                JOptionPane.showMessageDialog(null, "Se ha encontrado Alojamiento con ese ID");
+               // JOptionPane.showMessageDialog(null, "Se ha encontrado Alojamiento con ese ID");
                 alojamientoEncontrado = new Alojamiento();
                 Ciudad ciudad = new Ciudad();
                 alojamientoEncontrado.setIdAlojamiento(rs.getInt("idAlojamiento"));
@@ -114,7 +114,7 @@ public class AlojamientoData {
             ps.setInt(1, idCiudad);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                JOptionPane.showMessageDialog(null, "Se ha encontrado la ciudad con ese nombre");
+               // JOptionPane.showMessageDialog(null, "Se ha encontrado la ciudad con ese nombre");
                 alojamientoEncontrado = new Alojamiento();
                 alojamientoEncontrado.setIdAlojamiento(rs.getInt("idAlojamiento"));
                 alojamientoEncontrado.setServicios(rs.getString("servicios"));
